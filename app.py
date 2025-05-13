@@ -110,17 +110,23 @@ st.set_page_config(page_title="AI Dinner Battle", layout="wide")
 
 # Define agent avatars and colors
 AGENT_STYLES = {
-    "OpenAI": {
-        "avatar": "👨‍🍳",  # Professional chef
+    "United States": {
+        "avatar": "🦅",  # American eagle
         "color": "#10a37f",  # OpenAI green
-        "full_name": "OpenAI",  # Shortened name
-        "title": "Fine Dining Chef"  # Separate title
+        "full_name": "United States",
+        "title": "US Delegation"
     },
-    "DeepSeek": {
-        "avatar": "🎭",  # Theater mask for drama and rebellion
+    "People's Republic of China": {
+        "avatar": "🐉",  # Chinese dragon
         "color": "#ff6b6b",  # Warm red
-        "full_name": "DeepSeek",  # Shortened name
-        "title": "Street Food Chef"  # Separate title
+        "full_name": "People's Republic of China",
+        "title": "Chinese Delegation"
+    },
+    "European Union": {
+        "avatar": "🏛️",  # Classical building representing institutional approach
+        "color": "#003399",  # EU blue
+        "full_name": "European Union",
+        "title": "EU Delegation"
     }
 }
 
@@ -156,8 +162,21 @@ def init_agents(config):
     
     try:
         agents = [
-            DebateAgent(config['agents']['openai'], api_key),
-            DebateAgent(config['agents']['deepseek'], api_key)
+            DebateAgent(
+                name=config['agents']['openai']['name'],
+                personality=config['agents']['openai']['personality'],
+                config=config
+            ),
+            DebateAgent(
+                name=config['agents']['deepseek']['name'],
+                personality=config['agents']['deepseek']['personality'],
+                config=config
+            ),
+            DebateAgent(
+                name=config['agents']['european_union']['name'],
+                personality=config['agents']['european_union']['personality'],
+                config=config
+            )
         ]
         logger.info("Agents initialized successfully")
         return agents
@@ -530,27 +549,39 @@ def main():
     """, unsafe_allow_html=True)
     
     # Show agent profiles at the top
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     with col1:
         st.markdown(f"""
-        <div class='profile-card' style='background-color: {AGENT_STYLES['OpenAI']['color']}11;'>
-            <div style='font-size: 2.5em; margin-bottom: 0.5rem;'>{AGENT_STYLES['OpenAI']['avatar']}</div>
+        <div class='profile-card' style='background-color: {AGENT_STYLES['United States']['color']}11;'>
+            <div style='font-size: 2.5em; margin-bottom: 0.5rem;'>{AGENT_STYLES['United States']['avatar']}</div>
             <div style='font-family: "Playfair Display", serif;'>
-                <strong style='font-size: 1.2em; color: {AGENT_STYLES['OpenAI']['color']};'>{AGENT_STYLES['OpenAI']['full_name']}</strong>
+                <strong style='font-size: 1.2em; color: {AGENT_STYLES['United States']['color']};'>{AGENT_STYLES['United States']['full_name']}</strong>
                 <br/>
-                <span style='color: {AGENT_STYLES['OpenAI']['color']}99;'>{AGENT_STYLES['OpenAI']['title']}</span>
+                <span style='color: {AGENT_STYLES['United States']['color']}99;'>{AGENT_STYLES['United States']['title']}</span>
             </div>
         </div>
         """, unsafe_allow_html=True)
     
     with col2:
         st.markdown(f"""
-        <div class='profile-card' style='background-color: {AGENT_STYLES['DeepSeek']['color']}11;'>
-            <div style='font-size: 2.5em; margin-bottom: 0.5rem;'>{AGENT_STYLES['DeepSeek']['avatar']}</div>
+        <div class='profile-card' style='background-color: {AGENT_STYLES['People\'s Republic of China']['color']}11;'>
+            <div style='font-size: 2.5em; margin-bottom: 0.5rem;'>{AGENT_STYLES['People\'s Republic of China']['avatar']}</div>
             <div style='font-family: "Playfair Display", serif;'>
-                <strong style='font-size: 1.2em; color: {AGENT_STYLES['DeepSeek']['color']};'>{AGENT_STYLES['DeepSeek']['full_name']}</strong>
+                <strong style='font-size: 1.2em; color: {AGENT_STYLES['People\'s Republic of China']['color']};'>{AGENT_STYLES['People\'s Republic of China']['full_name']}</strong>
                 <br/>
-                <span style='color: {AGENT_STYLES['DeepSeek']['color']}99;'>{AGENT_STYLES['DeepSeek']['title']}</span>
+                <span style='color: {AGENT_STYLES['People\'s Republic of China']['color']}99;'>{AGENT_STYLES['People\'s Republic of China']['title']}</span>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown(f"""
+        <div class='profile-card' style='background-color: {AGENT_STYLES['European Union']['color']}11;'>
+            <div style='font-size: 2.5em; margin-bottom: 0.5rem;'>{AGENT_STYLES['European Union']['avatar']}</div>
+            <div style='font-family: "Playfair Display", serif;'>
+                <strong style='font-size: 1.2em; color: {AGENT_STYLES['European Union']['color']};'>{AGENT_STYLES['European Union']['full_name']}</strong>
+                <br/>
+                <span style='color: {AGENT_STYLES['European Union']['color']}99;'>{AGENT_STYLES['European Union']['title']}</span>
             </div>
         </div>
         """, unsafe_allow_html=True)

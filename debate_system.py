@@ -144,11 +144,11 @@ Begin your response with a brief action in italics that shows how you're engagin
             
     def _get_model_for_agent(self) -> str:
         """Get the appropriate model for this agent based on config"""
-            if "United States" in self.name:
+        if "United States" in self.name:
             return self.config.get('agents', {}).get('openai', {}).get('model', "openai/gpt-4-turbo-preview")
-            elif "European Union" in self.name:
+        elif "European Union" in self.name:
             return self.config.get('agents', {}).get('european_union', {}).get('model', "openai/gpt-4-turbo-preview")
-            else:  # China
+        else:  # China
             return self.config.get('agents', {}).get('deepseek', {}).get('model', "deepseek/deepseek-chat")
             
     def _generate_action(self, current_round=1) -> str:
@@ -260,13 +260,13 @@ Make it persuasive and aligned with your nation's values and strategic interests
                 elif "European Union" in self.name:
                     title = "The Balanced Integration Scenario"
                     document = "The Digital Agora"
-            else:  # China
+                else:  # China
                     title = "The Ordered Prosperity Scenario"
                     document = "The Harmonious Cultivation"
                 
                 return f"""*presents "{document}" position paper*\n\n**{title}**\n\nDue to technical difficulties, I can only present a summary of our position. We remain committed to our core principles of governance while respecting the international deliberative process. Thank you for your understanding."""
-            
+                
         except Exception as e:
             error_msg = f"Error generating conclusion: {str(e)}"
             logging.error(error_msg)
-            return f"*apologizes for technical difficulties*\n\nI regret that due to unforeseen technical issues, I cannot present our full position paper at this time. We look forward to sharing our comprehensive vision in follow-up communications."
+            return f"*apologizes for technical difficulties*\n\nI regret that due to unforeseen technical issues, I cannot present our full position paper at this time. We look forward to sharing our comprehensive vision in follow-up communications." 
