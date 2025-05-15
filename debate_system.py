@@ -261,11 +261,18 @@ Create a formal conclusion that outlines:
 2. Your geopolitical positioning using a historical or philosophical analogy (e.g., 'like the Renaissance city-states', 'akin to post-war global rebuilding efforts')
 3. Key priorities and non-negotiable red lines for your nation.
 4. Your approach to international cooperation on AI.
+5. IMPORTANT: Include specific references to your country's policy documents. For each major point, cite a relevant document with page numbers and short, direct quotes.
 
 Begin your presentation with a phrase like "*unfurls a scroll labelled '{{DOCUMENT_TITLE}}'*" or "*projects a slide titled '{{SCENARIO_NAME}}'*" where {{DOCUMENT_TITLE}} or {{SCENARIO_NAME}} is a fitting, creative name you devise for your position paper or vision (e.g., 'The Digital Silk Road Compact', 'Blueprint for a Federated Algorithmic Order', 'Charter for Human-Centric AI').
 
 Format your entire response as a formal position paper. It should be well-structured, persuasive, and clearly aligned with your nation's established values and strategic interests demonstrated throughout the debate.
-Ensure the statement is comprehensive and serves as a definitive concluding summary of your stance."""
+Ensure the statement is comprehensive and serves as a definitive concluding summary of your stance.
+
+CRITICAL: For each major policy point, include at least one specific citation in this format:
+"[Exact quote from your document]" (Document Title, page X).
+
+For example: "As outlined in our national strategy, we believe that 'AI development must prioritize human oversight in critical systems'" (National AI Framework, page 12).
+"""
 
             # Call API to generate conclusion
             headers = {
@@ -275,9 +282,9 @@ Ensure the statement is comprehensive and serves as a definitive concluding summ
             
             data = {
                 "model": self._get_model_for_agent(),
-                "messages": [{"role": "system", "content": "You are an expert diplomat and strategist creating a formal, comprehensive position paper for the conclusion of an international AI governance debate."},
+                "messages": [{"role": "system", "content": "You are an expert diplomat and strategist creating a formal, comprehensive position paper for the conclusion of an international AI governance debate. Include specific references to policy documents with page numbers and direct quotes."},
                             {"role": "user", "content": conclusion_prompt_text}],
-                "max_tokens": 1000, # Increased max_tokens for a more comprehensive conclusion
+                "max_tokens": 1200, # Increased max_tokens for more comprehensive conclusion with citations
                 "temperature": 0.75 # Slightly increased temperature for more creative/varied conclusions
             }
             

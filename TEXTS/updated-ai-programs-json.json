@@ -1,0 +1,345 @@
+{
+  "programs": [
+    {
+      "country": "USA",
+      "policyName": "CHIPS Act",
+      "year": 2022,
+      "fundingAmount": "$52.7 billion",
+      "fundingUSD": 52700000000,
+      "fundingBreakdown": {
+        "manufacturing": 0.74,
+        "researchAndDevelopment": 0.25,
+        "security": 0.01
+      },
+      "publicPrivateRatio": {
+        "public": 0.17,
+        "private": 0.83
+      },
+      "scope": "Export controls, semiconductor manufacturing, AI containment",
+      "strategicFocus": "Hardware-first approach with regulatory framework",
+      "investmentPriority": "Advanced semiconductor manufacturing with parallel export controls"
+    },
+    {
+      "country": "USA",
+      "policyName": "Framework for AI Diffusion",
+      "year": 2025,
+      "fundingAmount": "Regulatory",
+      "fundingUSD": null,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "Regulatory framework for AI model exports",
+      "strategicFocus": "Control of AI capabilities",
+      "investmentPriority": "Controls exports of AI models and training compute"
+    },
+    {
+      "country": "USA",
+      "policyName": "EAR Control of Model Weights",
+      "year": 2025,
+      "fundingAmount": "Regulatory",
+      "fundingUSD": null,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "AI model weight classification",
+      "strategicFocus": "Control of AI model distribution",
+      "investmentPriority": "Classifies trained weights as controlled items"
+    },
+    {
+      "country": "USA",
+      "policyName": "Foreign Direct Product Rule for AI",
+      "year": 2025,
+      "fundingAmount": "Regulatory",
+      "fundingUSD": null,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "Extraterritorial controls",
+      "strategicFocus": "Global AI governance",
+      "investmentPriority": "Extends US jurisdiction to items made with US technology"
+    },
+    {
+      "country": "European Union",
+      "policyName": "European Chips Act",
+      "year": 2023,
+      "fundingAmount": "€43 billion",
+      "fundingUSD": 46400000000,
+      "fundingBreakdown": {
+        "manufacturing": 0.70,
+        "researchAndDevelopment": 0.25,
+        "startups": 0.05
+      },
+      "publicPrivateRatio": {
+        "public": 0.26,
+        "private": 0.74
+      },
+      "scope": "Semiconductor manufacturing, AI infrastructure",
+      "strategicFocus": "Reducing dependencies and building strategic autonomy",
+      "investmentPriority": "Building domestic semiconductor manufacturing capacity"
+    },
+    {
+      "country": "European Union",
+      "policyName": "European Chips Act 2.0",
+      "year": 2025,
+      "fundingAmount": "TBD",
+      "fundingUSD": null,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "Refinement and regulation",
+      "strategicFocus": "Addressing gaps in initial approaches",
+      "investmentPriority": "Regulatory frameworks"
+    },
+    {
+      "country": "Japan",
+      "policyName": "Japan AI Strategy",
+      "year": 2022,
+      "fundingAmount": "¥111.6 billion",
+      "fundingUSD": 750000000,
+      "fundingBreakdown": {
+        "researchAndDevelopment": 0.60,
+        "infrastructure": 0.25,
+        "talent": 0.15
+      },
+      "publicPrivateRatio": null,
+      "scope": "AI research and development",
+      "strategicFocus": "Strategic R&D specialization",
+      "investmentPriority": "Targeted research with efficient allocation of limited resources"
+    },
+    {
+      "country": "India",
+      "policyName": "India AI Mission",
+      "year": 2023,
+      "fundingAmount": "$1.2 billion",
+      "fundingUSD": 1200000000,
+      "fundingBreakdown": {
+        "infrastructure": 0.40,
+        "research": 0.30,
+        "industry": 0.20,
+        "education": 0.10
+      },
+      "publicPrivateRatio": {
+        "public": 0.85,
+        "private": 0.15
+      },
+      "scope": "Public sector AI applications",
+      "strategicFocus": "Defense and public sector leverage",
+      "investmentPriority": "Sovereign compute infrastructure and defense applications"
+    },
+    {
+      "country": "China",
+      "policyName": "Algorithm Regulations",
+      "year": 2022,
+      "fundingAmount": "Regulatory",
+      "fundingUSD": null,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "AI content governance",
+      "strategicFocus": "Regulatory implementation while funding through other channels",
+      "investmentPriority": "Content governance and domestic alternatives development"
+    },
+    {
+      "country": "Canada",
+      "policyName": "Pan-Canadian AI Strategy",
+      "year": 2017,
+      "fundingAmount": "CAD $125 million, renewed with CAD $443 million",
+      "fundingUSD": 443000000,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "AI research and talent",
+      "strategicFocus": "Research excellence and talent retention",
+      "investmentPriority": "Support for AI research centers like MILA, Vector Institute, and Amii"
+    },
+    {
+      "country": "Germany",
+      "policyName": "AI Strategy",
+      "year": 2018,
+      "fundingAmount": "€5 billion",
+      "fundingUSD": 5400000000,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "Research and industry applications",
+      "strategicFocus": "Research, technology transfer to industry",
+      "investmentPriority": "AI Made in Germany as an ethical standard"
+    },
+    {
+      "country": "France",
+      "policyName": "AI for Humanity",
+      "year": 2018,
+      "fundingAmount": "€1.5 billion",
+      "fundingUSD": 1620000000,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "Research, open data, ethics",
+      "strategicFocus": "Research excellence and ethical AI",
+      "investmentPriority": "Support for research and AI startups"
+    },
+    {
+      "country": "United Kingdom",
+      "policyName": "National AI Strategy",
+      "year": 2021,
+      "fundingAmount": "£2.3 billion since 2014, plus £900 million for compute",
+      "fundingUSD": 4100000000,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "AI ecosystem development",
+      "strategicFocus": "Research, skills, business environment",
+      "investmentPriority": "AI compute capabilities and Alan Turing Institute"
+    },
+    {
+      "country": "South Korea",
+      "policyName": "AI National Strategy",
+      "year": 2019,
+      "fundingAmount": "$2 billion for R&D, $8.5 billion Digital New Deal",
+      "fundingUSD": 10500000000,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "AI R&D and semiconductor development",
+      "strategicFocus": "Become top four AI powerhouse",
+      "investmentPriority": "Semiconductor development for AI hardware"
+    },
+    {
+      "country": "Singapore",
+      "policyName": "National AI Strategy",
+      "year": 2019,
+      "fundingAmount": "SG $500 million",
+      "fundingUSD": 370000000,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "Five key sectors: transport, healthcare, education, public services, safety",
+      "strategicFocus": "Industry-academia collaboration",
+      "investmentPriority": "AI Singapore program"
+    },
+    {
+      "country": "Taiwan",
+      "policyName": "AI Action Plan",
+      "year": 2018,
+      "fundingAmount": "NT$10 billion",
+      "fundingUSD": 357000000,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "Smart manufacturing and healthcare",
+      "strategicFocus": "Leverage semiconductor strength",
+      "investmentPriority": "AI hardware development"
+    },
+    {
+      "country": "UAE",
+      "policyName": "AI Strategy 2031",
+      "year": 2017,
+      "fundingAmount": "N/A",
+      "fundingUSD": null,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "Government services and economic sectors",
+      "strategicFocus": "Become global AI leader by 2031",
+      "investmentPriority": "Mohamed bin Zayed University of Artificial Intelligence"
+    },
+    {
+      "country": "Saudi Arabia",
+      "policyName": "AI Investments",
+      "year": 2020,
+      "fundingAmount": "$20 billion",
+      "fundingUSD": 20000000000,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "Saudi Data & AI Authority and NEOM project",
+      "strategicFocus": "Economic transformation",
+      "investmentPriority": "Vision 2030 implementation"
+    },
+    {
+      "country": "Russia",
+      "policyName": "National AI Strategy",
+      "year": 2019,
+      "fundingAmount": "$6.1 billion",
+      "fundingUSD": 6100000000,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "AI development and implementation",
+      "strategicFocus": "Public-private partnership approach",
+      "investmentPriority": "Reduce dependency on foreign technologies"
+    },
+    {
+      "country": "Australia",
+      "policyName": "AI Action Plan",
+      "year": 2021,
+      "fundingAmount": "AUD $124.1 million",
+      "fundingUSD": 83000000,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "National challenges and AI capabilities",
+      "strategicFocus": "Industry integration",
+      "investmentPriority": "National AI Centre"
+    },
+    {
+      "country": "Israel",
+      "policyName": "National AI Program",
+      "year": 2021,
+      "fundingAmount": "$1.7 billion",
+      "fundingUSD": 1700000000,
+      "fundingBreakdown": null,
+      "publicPrivateRatio": null,
+      "scope": "AI infrastructure and research",
+      "strategicFocus": "Military applications and cybersecurity",
+      "investmentPriority": "University research programs and startups"
+    }
+  ],
+  "timeline": {
+    "2017": ["Canada's Pan-Canadian AI Strategy", "UAE's AI Strategy 2031"],
+    "2018": ["Germany's AI Strategy", "France's AI for Humanity", "Taiwan's AI Action Plan"],
+    "2019": ["South Korea's AI National Strategy", "Singapore's National AI Strategy", "Russia's National AI Strategy"],
+    "2020": ["Saudi Arabia's AI Investments"],
+    "2021": ["UK's National AI Strategy", "Australia's AI Action Plan", "Israel's National AI Program"],
+    "2022": ["USA CHIPS Act", "Japan AI Strategy", "China Algorithm Regulations"],
+    "2023": ["European Chips Act", "India AI Mission"],
+    "2025": ["European Chips Act 2.0", "US Framework for AI Diffusion", "EAR Control of Model Weights", "Foreign Direct Product Rule"]
+  },
+  "regionalTotals": {
+    "North America": {
+      "countries": ["USA", "Canada"],
+      "totalFundingUSD": 53143000000
+    },
+    "Europe": {
+      "countries": ["European Union", "Germany", "France", "United Kingdom"],
+      "totalFundingUSD": 57520000000
+    },
+    "Asia": {
+      "countries": ["Japan", "India", "China", "South Korea", "Singapore", "Taiwan"],
+      "totalFundingUSD": 13177000000
+    },
+    "Middle East": {
+      "countries": ["UAE", "Saudi Arabia", "Israel"],
+      "totalFundingUSD": 21700000000
+    },
+    "Oceania": {
+      "countries": ["Australia"],
+      "totalFundingUSD": 83000000
+    },
+    "Eurasia": {
+      "countries": ["Russia"],
+      "totalFundingUSD": 6100000000
+    }
+  },
+  "fundingTypes": {
+    "direct": ["USA CHIPS Act", "European Chips Act", "Japan AI Strategy", "India AI Mission"],
+    "regulatory": ["Framework for AI Diffusion", "EAR Control of Model Weights", "Foreign Direct Product Rule for AI", "Algorithm Regulations"],
+    "publicPrivatePartnership": ["USA CHIPS Act", "European Chips Act", "Russia's National AI Strategy"],
+    "researchFocused": ["Japan AI Strategy", "Canada's Pan-Canadian AI Strategy", "Germany's AI Strategy", "France's AI for Humanity"]
+  },
+  "strategicApproaches": {
+    "hardwareControl": ["USA CHIPS Act", "European Chips Act", "South Korea's AI National Strategy", "Taiwan's AI Action Plan"],
+    "researchExcellence": ["Japan AI Strategy", "Canada's Pan-Canadian AI Strategy", "Germany's AI Strategy", "France's AI for Humanity", "UK's National AI Strategy"],
+    "defenseApplications": ["India AI Mission", "Israel's National AI Program", "Russia's National AI Strategy"],
+    "economicTransformation": ["UAE's AI Strategy 2031", "Saudi Arabia's AI Investments", "Singapore's National AI Strategy"],
+    "regulatoryFrameworks": ["Framework for AI Diffusion", "EAR Control of Model Weights", "Foreign Direct Product Rule for AI", "Algorithm Regulations", "European Chips Act 2.0"]
+  },
+  "metadata": {
+    "lastUpdated": "2025-03-24",
+    "currencies": {
+      "USD": 1,
+      "EUR": 1.08,
+      "JPY": 0.0067,
+      "GBP": 1.27,
+      "CAD": 0.73,
+      "AUD": 0.67,
+      "SGD": 0.74,
+      "TWD": 0.0357
+    },
+    "analysisNotes": "Funding amounts are converted to USD based on approximate conversion rates. Some programs do not disclose detailed funding breakdowns or public-private ratios. Regulatory frameworks are included even when they don't have direct funding allocations."
+  }
+}

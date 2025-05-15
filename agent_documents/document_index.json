@@ -1,0 +1,98 @@
+{
+  "European_Union_EUAIAct2025.pdf_20250515124905": {
+    "id": "European_Union_EUAIAct2025.pdf_20250515124905",
+    "title": "EU AI Act 2025",
+    "agent": "European_Union",
+    "type": "regulation",
+    "description": "",
+    "original_file": "agent_documents\\European_Union\\EUAIAct2025.pdf",
+    "text_file": "agent_documents\\European_Union\\European_Union_EUAIAct2025.pdf_20250515124905.txt",
+    "pages": 12,
+    "upload_date": "2025-05-15 12:49:05",
+    "char_count": 30071
+  },
+  "European_Union_EUAIcontinent.pdf_20250515124920": {
+    "id": "European_Union_EUAIcontinent.pdf_20250515124920",
+    "title": "EU AI Continent Plan",
+    "agent": "European_Union",
+    "type": "strategy",
+    "description": "",
+    "original_file": "agent_documents\\European_Union\\EUAIcontinent.pdf",
+    "text_file": "agent_documents\\European_Union\\European_Union_EUAIcontinent.pdf_20250515124920.txt",
+    "pages": 3,
+    "upload_date": "2025-05-15 12:49:20",
+    "char_count": 13379
+  },
+  "European_Union_EUAIScience.pdf_20250515124932": {
+    "id": "European_Union_EUAIScience.pdf_20250515124932",
+    "title": "EU AI Science Framework",
+    "agent": "European_Union",
+    "type": "research",
+    "description": "",
+    "original_file": "agent_documents\\European_Union\\EUAIScience.pdf",
+    "text_file": "agent_documents\\European_Union\\European_Union_EUAIScience.pdf_20250515124932.txt",
+    "pages": 3,
+    "upload_date": "2025-05-15 12:49:32",
+    "char_count": 10128
+  },
+  "United_States_USChipAct.pdf_20250515124944": {
+    "id": "United_States_USChipAct.pdf_20250515124944",
+    "title": "US CHIPS and Science Act",
+    "agent": "United_States",
+    "type": "legislation",
+    "description": "",
+    "original_file": "agent_documents\\United_States\\USChipAct.pdf",
+    "text_file": "agent_documents\\United_States\\United_States_USChipAct.pdf_20250515124944.txt",
+    "pages": 31,
+    "upload_date": "2025-05-15 12:49:44",
+    "char_count": 119948
+  },
+  "European_Union_EUAICloud.pdf_20250515124948": {
+    "id": "European_Union_EUAICloud.pdf_20250515124948",
+    "title": "EU AI Cloud Initiative",
+    "agent": "European_Union",
+    "type": "infrastructure",
+    "description": "",
+    "original_file": "agent_documents\\European_Union\\EUAICloud.pdf",
+    "text_file": "agent_documents\\European_Union\\European_Union_EUAICloud.pdf_20250515124948.txt",
+    "pages": 3,
+    "upload_date": "2025-05-15 12:49:48",
+    "char_count": 13379
+  },
+  "United_States_USframework.pdf_20250515125002": {
+    "id": "United_States_USframework.pdf_20250515125002",
+    "title": "US AI Governance Framework",
+    "agent": "United_States",
+    "type": "framework",
+    "description": "",
+    "original_file": "agent_documents\\United_States\\USframework.pdf",
+    "text_file": "agent_documents\\United_States\\United_States_USframework.pdf_20250515125002.txt",
+    "pages": 165,
+    "upload_date": "2025-05-15 12:50:02",
+    "char_count": 5305
+  },
+  "European_Union_EUReg2023.pdf_20250515125003": {
+    "id": "European_Union_EUReg2023.pdf_20250515125003",
+    "title": "EU Regulation 2023",
+    "agent": "European_Union",
+    "type": "regulation",
+    "description": "",
+    "original_file": "agent_documents\\European_Union\\EUReg2023.pdf",
+    "text_file": "agent_documents\\European_Union\\European_Union_EUReg2023.pdf_20250515125003.txt",
+    "pages": 53,
+    "upload_date": "2025-05-15 12:50:07",
+    "char_count": 205653
+  },
+  "United_States_USANIST.pdf_20250515125020": {
+    "id": "United_States_USANIST.pdf_20250515125020",
+    "title": "NIST AI Standards",
+    "agent": "United_States",
+    "type": "standards",
+    "description": "",
+    "original_file": "agent_documents\\United_States\\USANIST.pdf",
+    "text_file": "agent_documents\\United_States\\United_States_USANIST.pdf_20250515125020.txt",
+    "pages": 64,
+    "upload_date": "2025-05-15 12:50:23",
+    "char_count": 164471
+  }
+}

@@ -298,7 +298,26 @@ def main():
             elif agent_name == agent_eu_name: avatar = "🇪🇺"
             with st.chat_message(agent_name, avatar=avatar):
                 st.markdown(f"**{agent_name} (Round {round_num})**")
-                st.markdown(message_data["message"])
+                
+                # Split message to separate document citations if present
+                message_text = message_data["message"]
+                doc_citations = ""
+                
+                if "_Sources referenced:_" in message_text:
+                    parts = message_text.split("_Sources referenced:_")
+                    message_text = parts[0].strip()
+                    doc_citations = "_Sources referenced:_" + parts[1]
+                
+                # Display the main message
+                st.markdown(message_text)
+                
+                # Display document citations with styling if present
+                if doc_citations:
+                    st.markdown(f"""
+                    <div style="font-size: 0.8em; border-left: 3px solid #ccc; padding-left: 10px; margin-top: 10px; color: #555;">
+                    {doc_citations}
+                    </div>
+                    """, unsafe_allow_html=True)
     
     if st.session_state.get("conclusions"):
         st.markdown("### Final Position Papers")

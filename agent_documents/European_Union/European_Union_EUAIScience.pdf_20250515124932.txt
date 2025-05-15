@@ -1,0 +1,133 @@
+--- Page 1 ---
+ 
+ 
+ 
+CALL FOR EVIDENCE  
+FOR A N INITIATIVE  (without an impact assessment)  
+TITLE OF THE INITIATIVE  A European strategy for AI in science  - paving the way for a European AI research 
+council  
+LEAD DG – RESPONSIBLE UNIT  DG RTD , Unit E4, Industry 5.0 and AI in Science  
+LIKELY TYPE OF INITIATIVE  Communication from the Commission to the European Parliament, the Council, 
+the European Economic and Social Committee and the Committee of the Regions  
+INDICATIVE TIMING  Q3-2025 
+ADDITIONAL INFORMATION  https://research -and-innovation.ec.europa.eu/research -area/industrial -research -
+and-innovation/artificial -intelligence -ai-science_en   
+ 
+A. Political c ontext , problem definition and subsidiarity check  
+Political c ontext   
+Artificial intelligence (AI) is revolutioni sing a number  of sectors, with science being particularly 
+affected. These advancements are expected to quicken the pace of scientific discoveries, leading to 
+important and positive economic and societal outcomes .  
+AI in science presents a  compet itiveness opportunity for Europe, in line with the political guidelines of 
+the Commission  (2024 -29). It support s ‘a new plan for Europe’s sustainable prosperity and 
+competitiveness’ , with ‘research and innovation at the heart of our economy’. The Draghi report  flagged 
+the need to focus on advanced technologies (such as AI) to regain competitiveness . The Letta report  
+recognise d the opport unity to position the EU as a global AI hub and win the race for AI applications .  
+Acknowledging AI ’s strategic significance in science, the Commission is committed to develop ing a 
+comprehensive strategy to enable scientists across the EU to adopt this technology.  
+This strategy is mentioned in Commissioner Zaharieva ’s mission letter  as a policy priority , together with 
+an AI initiative  to pool resources . The European strategy for AI in science  will be adopted  together with 
+the Apply AI strategy . Both strategies will foll ow a blueprint that will be d efine d in the  overarching AI 
+continent  strategy , linking the different AI -related policy initiatives . The Apply AI strategy will support 
+the development and deployment of AI in various sectors, including science  as a special sector . The 
+European strategy for AI in science will develop targeted policies to serve the needs of the European 
+scientific ecosystem, ensuring that the scientific community can effectively harness  AI to advance 
+science  and taking into account other related ongoing and planned  EU initiatives . 
+Problem the initiative aims to tackl e  
+This strategy will tackle  the limited adoption of AI in European scientific activities  compared with the 
+global leaders . This  affec ts the speed and quality of scientific output , reduc ing the impact of EU science 
+global ly. A declining share of scientific impact and breakthroughs  diminishes the EU’s  opportunities for 
+economic growth, competitiveness and a knowledge  economy . It also increases the technological 
+dependenc y on external players  and reduc es the EU’s overall strategic autonomy.  
+Several countries and private institutions are already moving rapidly in this direction , and the EU needs 
+to be at the forefront . The US A, through the Department of Energy or the National Science Foundation , 
+is putting in motion ambitious initiatives around AI in science like NAIRR  and FASST . China  is 
+supporting the integration of AI in science through program mes and infrastructure , while in the UK the 
+Royal Society  and the UKRI  have analysed  the impact of AI in science and propos ed policy actions. At 
+the same time, big tech companies are investing massively in science with AI .  
+Ref. Ares(2025)2923892 - 10/04/2025
+
+
+--- Page 2 ---
+ 
+    
+            2 The adoption of AI in science in the EU is impacted by elements that affect the overall uptake of AI in 
+all sectors  (e.g. comput ation , data, talent) , but the scientific context  has significant specificities . 
+Basis for EU action  (legal basis and subsidiarity check)  
+Legal basis  
+The initiative falls under the policy area ‘research and technological development’ , where the EU and its 
+Member States share powers in line with Article 4(3) of the Treaty on the Functioning of the European 
+Union (TFEU).  
+Article 181 TFEU states that the EU and its Member States ‘shall coordinate their research  and 
+technological development activities so as to ensure that national policies and Union policy are mutually 
+consistent ’. The Commission may under take any useful initiative to promote this coordination . 
+Practical n eed for EU action  
+A European intervention could activate, mobilise and  coordinat e efforts across different policies with 
+Member States and other relevant stakeholders (like universities , research organisation s, research 
+funders, etc.) , sharing best practices or pooling resour ces. 
+The Commission could lead the efforts  in this area  by providing guidance, policy analysis  and monitoring 
+developments . It can use EU funding  (e.g. Horizon Europe , Digital Europe ) as a policy lever , and could 
+defend  European interests in international fora, taking into account  AI-relevant  EU initiatives . 
+B. What does the initiative aim to achieve  and how   
+This initiative aims to make it easier for  EU scientists to unlock  the full potential of AI in their activities  
+by using and developing new  AI tools  for science , and contribut ing to the overall AI ecosystem in the 
+EU. This strategy  will explore the challenges and opportunities around AI in science and sketch  the 
+policy interventions most effective to accelerate this transition. The strategy will address different policy 
+aspects such as coordination with Member States; adaptation of funding instruments ; facilitat ing access  
+to infrastructure ; modernising  the sci entific data ecosystem ; and  developing communities on the use  and 
+development  of AI in the different scientific domains, skills and training policies, etc.  
+Likely impacts  
+The strategy will support scientists and research organisations  so that:  
+• policie s for AI in science , at EU and national level, are coordinated  to maximise impact ;  
+• funding instruments and investments  in science  better serve the needs of AI -enabled  science  and 
+facilitate collaboration with the private sector ; 
+• specific  AI tools  for science,  like scientific foundation models , are developed and accessible ; 
+• scientists acquire  AI skills and  increase interdisciplinarity ( e.g. collaboration between AI and 
+domain scientists  to build new AI tools  and models for science );  
+• scientists are better informed and equipped to tac kle AI limitations and potential ethical , privacy  
+and security risks . 
+The strategy will therefore capitalise on AI to facilitate more and be tter science, increasing the research 
+and innovation (R&I) capabilities of the EU. In this way, the strategy will boost the capacity of R&I to 
+achieve economic impact and tackle societal challenges. It will also help to deliver directly on some of 
+the targets of the UN Sustainable Development Goals, such as improving scientific research and 
+upgrading technological capabilities. In addition, the strategy will pave the way for further actions to 
+pool reso urces and accelerate the uptake of AI in science .  
+Future monitoring  
+
+--- Page 3 ---
+ 
+    
+            3 Due to the fast-paced  developments on AI , its impact in science will have to be followed closely to ensure 
+that policies and guidelines keep  up with this trend . Qualitative  and quantitative  analysis  (whe re possible)  
+will be used to regularly monitor t he impact and goals of the different policies  proposed . 
+C. Better regulation  
+Impact assessment   
+N/A. 
+The AI in science strategy will be presented in a Commission Communication . This type of document 
+does not require an impact assessment.  
+Consultation strategy   
+The primary objective of this consultation is to gather relevant and diverse inputs to support the 
+development and implementation of a robust and forward -looking AI in science strategy for the EU.   
+The main stakeholde rs identified are in  research and academia: researchers, research and academic 
+organisations, funders , research infrastructure , etc.  The p rivate sector is also relevant, in particular 
+European  R&I intensive companies , including start -ups.  
+The consultation will be implemented through targeted consultation activities, including online 
+questionnair es, workshops, interviews, focus groups, etc. The activities will take place mo stly in Q1-
+2025 and in parts of Q2 -2025.  
+These consultation activities  will use the different networks of R&I stakeholders  as multipliers, for 
+example through the European Research Area ( ERA ) Forum . It will build on the extensive consultations 
+done in recent years with the Member States and stakeholders to prepar e for this strategy: policy brief on 
+harnessing the power of AI to accelerate discovery and foster innovation , guidelines on the use of 
+generative AI in research , a Mutual Learning Exercise with ERA countries,  and the opinion from the 
+Scientific Advice Mechanism on AI in science . Consultations conducted as part  of the Apply AI strategy, 
+especially those involving R&I intensive start -ups, can also provide v aluable input and contributions to 
+this consultation.  
+In line with the Commission’s better regulation policy to develop initiatives informed by the best 
+available knowledge, we also invite scientific researchers as well as academic organisations, learned 
+societies and scientific associations with expertise in the use of AI in science  to submit relevant published 
+and pre -print scientific research, analyses and data. Given the importance of evidence -based 
+policymaking at both EU and national level, we particularly encourage submissions that synthesise the 
+current state of knowledge in relevan t fields.  
+The inputs from the different consultation activities with stakeholders will be summarised in a short 
+report . 
+ 

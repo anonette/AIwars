@@ -115,13 +115,13 @@ topics:
   - name: "Digital Sovereignty"
     description: "National control over data, algorithms, and technological infrastructure"
   - name: "Machinic Federation"
-    description: "EU scenario exploring decentralized governance with autonomous algorithmic systems"
+    description: "Scenario exploring decentralized governance with autonomous algorithmic systems"
   - name: "Technocratic Fortress"
-    description: "EU scenario focusing on regulatory strength and technological self-sufficiency"
+    description: "Scenario focusing on regulatory strength and technological self-sufficiency"
   - name: "Infrastructural Vassalage"
-    description: "EU scenario examining dependence on external tech infrastructure and its consequences"
+    description: "Scenario examining dependence on external tech infrastructure and its consequences"
   - name: "Digital Non-Alignment"
-    description: "EU scenario exploring sovereignty through strategic neutrality in technology governance"
+    description: "Scenario exploring sovereignty through strategic neutrality in technology governance"
 
 debate_styles:
   diplomatic:

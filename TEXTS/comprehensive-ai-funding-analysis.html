@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Comprehensive AI Containment Program Funding Analysis</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 30px;
+      border-radius: 8px;
+    }
+    .header {
+      text-align: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 30px;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    h2 {
+      color: #3498db;
+      margin-top: 40px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+    h3 {
+      color: #2980b9;
+      margin-top: 30px;
+    }
+    .chart-container {
+      margin: 40px 0;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .bar-container {
+      margin-top: 30px;
+    }
+    .bar {
+      height: 40px;
+      margin: 10px 0;
+      background-color: #3498db;
+      border-radius: 5px;
+      transition: width 0.3s ease;
+      position: relative;
+    }
+    .bar-label {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+      font-weight: bold;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    }
+    .bar-value {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+      font-weight: bold;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    }
+    .summary {
+      line-height: 1.7;
+      font-size: 16px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      box-shadow: 0 2px 3px rgba(0,0,0,0.05);
+    }
+    th, td {
+      padding: 15px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f6f9;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tr:hover {
+      background-color: #f0f7fc;
+    }
+    .footnote {
+      font-size: 14px;
+      font-style: italic;
+      color: #7f8c8d;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+    .section {
+      margin: 40px 0;
+      padding: 25px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .grid-item {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .pie-container {
+      height: 300px;
+      position: relative;
+    }
+    .donut-container {
+      height: 300px;
+      position: relative;
+    }
+    .timeline {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 20px;
+    }
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      background-color: #3498db;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -3px;
+      border-radius: 3px;
+    }
+    .timeline-container {
+      padding: 10px 40px;
+      position: relative;
+      background-color: inherit;
+      width: 40%;
+    }
+    .timeline-container.left {
+      left: 0;
+    }
+    .timeline-container.right {
+      left: 50%;
+    }
+    .timeline-container::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      right: -10px;
+      background-color: white;
+      border: 4px solid #3498db;
+      top: 15px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .timeline-container.right::after {
+      left: -10px;
+    }
+    .timeline-content {
+      padding: 20px;
+      background-color: white;
+      position: relative;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .timeline-content h3 {
+      margin-top: 0;
+      color: #3498db;
+    }
+    .subsection {
+      background-color: white;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Comprehensive AI Containment Program Funding Analysis</h1>
+      <p>A multi-dimensional analysis of global AI and semiconductor funding initiatives</p>
+    </div>
+    
+    <!-- 1. Funding Allocation Breakdown -->
+    <h2>1. Funding Allocation Breakdown</h2>
+    <div class="summary">
+      <p>Each program allocates its funding differently across various priorities, reflecting strategic goals and national priorities.</p>
+    </div>
+    
+    <div class="grid-container">
+      <div class="grid-item">
+        <h3>USA CHIPS Act ($52.7 billion)</h3>
+        <div class="pie-container">
+          <svg width="100%" height="100%" viewBox="0 0 300 300">
+            <!-- Pie chart segments -->
+            <circle cx="150" cy="150" r="100" fill="#f0f0f0" />
+            <!-- 74% Manufacturing -->
+            <path d="M150,150 L250,150 A100,100 0 1,1 150.00000000000003,50 Z" fill="#3498db" />
+            <!-- 25% R&D -->
+            <path d="M150,150 L150.00000000000003,50 A100,100 0 0,1 249.9999999999999,149.99999999999991 Z" fill="#2ecc71" />
+            <!-- 1% Security -->
+            <path d="M150,150 L249.9999999999999,149.99999999999991 A100,100 0 0,1 250,150 Z" fill="#e74c3c" />
+            
+            <!-- Center circle for donut chart -->
+            <circle cx="150" cy="150" r="60" fill="white" />
+            <text x="150" y="145" text-anchor="middle" font-size="18" font-weight="bold">CHIPS Act</text>
+            <text x="150" y="170" text-anchor="middle" font-size="14">$52.7B</text>
+          </svg>
+        </div>
+        <div style="text-align: center;">
+          <span style="display: inline-block; width: 12px; height: 12px; background-color: #3498db; margin-right: 5px;"></span> Manufacturing (74%)
+          <span style="display: inline-block; width: 12px; height: 12px; background-color: #2ecc71; margin-right: 5px; margin-left: 15px;"></span> R&D (25%)
+          <span style="display: inline-block; width: 12px; height: 12px; background-color: #e74c3c; margin-right: 5px; margin-left: 15px;"></span> Security (1%)
+        </div>
+      </div>
+      
+      <div class="grid-item">
+        <h3>European Chips Act (€43 billion)</h3>
+        <div class="pie-container">
+          <svg width="100%" height="100%" viewBox="0 0 300 300">
+            <!-- Pie chart segments -->
+            <circle cx="150" cy="150" r="100" fill="#f0f0f0" />
+            <!-- 70% Manufacturing -->
+            <path d="M150,150 L250,150 A100,100 0 1,1 79.54915028125263,190.45084971874732 Z" fill="#3498db" />
+            <!-- 25% R&D -->
+            <path d="M150,150 L79.54915028125263,190.45084971874732 A100,100 0 0,1 150.00000000000003,50 Z" fill="#2ecc71" />
+            <!-- 5% Startups -->
+            <path d="M150,150 L150.00000000000003,50 A100,100 0 0,1 249.9999999999999,149.99999999999991 Z" fill="#e74c3c" />
+            
+            <!-- Center circle for donut chart -->
+            <circle cx="150" cy="150" r="60" fill="white" />
+            <text x="150" y="145" text-anchor="middle" font-size="18" font-weight="bold">EU Chips Act</text>
+            <text x="150" y="170" text-anchor="middle" font-size="14">€43B</text>
+          </svg>
+        </div>
+        <div style="text-align: center;">
+          <span style="display: inline-block; width: 12px; height: 12px; background-color: #3498db; margin-right: 5px;"></span> Manufacturing (70%)
+          <span style="display: inline-block; width: 12px; height: 12px; background-color: #2ecc71; margin-right: 5px; margin-left: 15px;"></span> R&D (25%)
+          <span style="display: inline-block; width: 12px; height: 12px; background-color: #e74c3c; margin-right: 5px; margin-left: 15px;"></span> Startups (5%)
+        </div>
+      </div>
+      
+      <div class="grid-item">
+        <h3>Japan AI Strategy (¥111.6 billion)</h3>
+        <div class="pie-container">
+          <svg width="100%" height="100%" viewBox="0 0 300 300">
+            <!-- Pie chart segments -->
+            <circle cx="150" cy="150" r="100" fill="#f0f0f0" />
+            <!-- 60% R&D -->
+            <path d="M150,150 L250,150 A100,100 0 0,1 150.00000000000003,250 Z" fill="#2ecc71" />
+            <!-- 25% Infrastructure -->
+            <path d="M150,150 L150.00000000000003,250 A100,100 0 0,1 56.69872981077806,179.38926261462365 Z" fill="#3498db" />
+            <!-- 15% Talent -->
+            <path d="M150,150 L56.69872981077806,179.38926261462365 A100,100 0 0,1 249.9999999999999,149.99999999999991 Z" fill="#9b59b6" />
+            
+            <!-- Center circle for donut chart -->
+            <circle cx="150" cy="150" r="60" fill="white" />
+            <text x="150" y="145" text-anchor="middle" font-size="18" font-weight="bold">Japan AI</text>
+            <text x="150" y="170" text-anchor="middle" font-size="14">¥111.6B</text>
+          </svg>
+        </div>
+        <div style="text-align: center;">
+          <span style="display: inline-block; width: 12px; height: 12px; background-color: #2ecc71; margin-right: 5px;"></span> R&D (60%)
+          <span style="display: inline-block; width: 12px; height: 12px; background-color: #3498db; margin-right: 5px; margin-left: 15px;"></span> Infrastructure (25%)
+          <span style="display: inline-block; width: 12px; height: 12px; background-color: #9b59b6; margin-right: 5px; margin-left: 15px;"></span> Talent (15%)
+        </div>
+      </div>
+      
+      <div class="grid-item">
+        <h3>India AI Mission ($1.2 billion)</h3>
+        <div class="pie-container">
+          <svg width="100%" height="100%" viewBox="0 0 300 300">
+            <!-- Pie chart segments -->
+            <circle cx="150" cy="150" r="100" fill="#f0f0f0" />
+            <!-- 40% Infrastructure -->
+            <path d="M150,150 L250,150 A100,100 0 0,1 190.45084971874737,220.45084971874737 Z" fill="#3498db" />
+            <!-- 30% Research -->
+            <path d="M150,150 L190.45084971874737,220.45084971874737 A100,100 0 0,1 109.54915028125264,220.45084971874734 Z" fill="#2ecc71" />
+            <!-- 20% Industry -->
+            <path d="M150,150 L109.54915028125264,220.45084971874734 A100,100 0 0,1 79.55,190.35 Z" fill="#e74c3c" />
+            <!-- 10% Education -->
+            <path d="M150,150 L79.55,190.35 A100,100 0 0,1 249.9999999999999,149.99999999999991 Z" fill="#f39c12" />
+            
+            <!-- Center circle for donut chart -->
+            <circle cx="150" cy="150" r="60" fill="white" />
+            <text x="150" y="145" text-anchor="middle" font-size="18" font-weight="bold">India AI</text>
+            <text x="150" y="170" text-anchor="middle" font-size="14">$1.2B</text>
+          </svg>
+        </div>
+        <div style="text-align: center;">
+          <span style="display: inline-block; width: 12px; height: 12px; background-color: #3498db; margin-right: 5px;"></span> Infrastructure (40%)
+          <span style="display: inline-block; width: 12px; height: 12px; background-color: #2ecc71; margin-right: 5px; margin-left: 10px;"></span> Research (30%)
+          <br>
+          <span style="display: inline-block; width: 12px; height: 12px; background-color: #e74c3c; margin-right: 5px;"></span> Industry (20%)
+          <span style="display: inline-block; width: 12px; height: 12px; background-color: #f39c12; margin-right: 5px; margin-left: 10px;"></span> Education (10%)
+        </div>
+      </div>
+    </div>
+    
+    <!-- 2. Strategic Significance of Funding Disparities -->
+    <h2>2. Strategic Significance of Funding Disparities</h2>
+    
+    <div class="chart-container">
+      <h3>Funding Comparison by Country/Region (in USD billions)</h3>
+      <div class="bar-container">
+        <div class="bar" style="width: 100%;">
+          <span class="bar-label">USA</span>
+          <span class="bar-value">$52.7B</span>
+        </div>
+        <div class="bar" style="width: 88%;">
+          <span class="bar-label">European Union</span>
+          <span class="bar-value">$46.4B + $10.8B</span>
+        </div>
+        <div class="bar" style="width: 2.3%;">
+          <span class="bar-label">India</span>
+          <span class="bar-value">$1.2B</span>
+        </div>
+        <div class="bar" style="width: 1.4%;">
+          <span class="bar-label">Japan</span>
+          <span class="bar-value">$0.75B</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="subsection">
+      <h3>Strategic Approaches by Region</h3>
+      <table>
+        <tr>
+          <th>Region</th>
+          <th>Strategic Focus</th>
+          <th>Investment Priority</th>
+        </tr>
+        <tr>
+          <td>USA</td>
+          <td>Hardware-first approach with regulatory framework</td>
+          <td>Advanced semiconductor manufacturing with parallel export controls</td>
+        </tr>
+        <tr>
+          <td>European Union</td>
+          <td>Reducing dependencies and building strategic autonomy</td>
+          <td>Building domestic semiconductor manufacturing capacity</td>
+        </tr>
+        <tr>
+          <td>Japan</td>
+          <td>Strategic R&D specialization</td>
+          <td>Targeted research with efficient allocation of limited resources</td>
+        </tr>
+        <tr>
+          <td>India</td>
+          <td>Defense and public sector leverage</td>
+          <td>Sovereign compute infrastructure and defense applications</td>
+        </tr>
+        <tr>
+          <td>China</td>
+          <td>Regulatory implementation while funding through other channels</td>
+          <td>Content governance and domestic alternatives development</td>
+        </tr>
+      </table>
+    </div>
+    
+    <!-- 3. Complementary Regulatory Frameworks -->
+    <h2>3. Complementary Regulatory Frameworks</h2>
+    
+    <div class="grid-container">
+      <div class="grid-item">
+        <h3>How Regulatory Programs Support Funded Initiatives</h3>
+        <ul class="summary">
+          <li><strong>Protection of Investments</strong>: Export controls prevent foreign exploitation of domestic R&D</li>
+          <li><strong>Market Advantage Creation</strong>: Regulatory frameworks create protected markets for domestic companies</li>
+          <li><strong>Standard Setting</strong>: Regulations establish norms that shape global AI development trajectory</li>
+          <li><strong>Supply Chain Control</strong>: Extraterritorial rules extend influence beyond national borders</li>
+        </ul>
+      </div>
+      
+      <div class="grid-item">
+        <h3>Key Regulatory Programs</h3>
+        <table>
+          <tr>
+            <th>Program</th>
+            <th>Primary Function</th>
+          </tr>
+          <tr>
+            <td>Framework for AI Diffusion (USA)</td>
+            <td>Controls exports of AI models and training compute</td>
+          </tr>
+          <tr>
+            <td>EAR Control of Model Weights (USA)</td>
+            <td>Classifies trained weights as controlled items</td>
+          </tr>
+          <tr>
+            <td>Foreign Direct Product Rule for AI (USA)</td>
+            <td>Extends US jurisdiction to items made with US technology</td>
+          </tr>
+          <tr>
+            <td>Algorithm Regulations (China)</td>
+            <td>Controls domestic content and training data</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    
+    <!-- 4. Funding Timeline and Technological Development -->
+    <h2>4. Funding Timeline and Technological Development</h2>
+    
+    <div class="timeline">
+      <div class="timeline-container left">
+        <div class="timeline-content">
+          <h3>2022: Initial Investment Wave</h3>
+          <p><strong>Programs:</strong> USA CHIPS Act, Japan AI Strategy, China Algorithm Regulations</p>
+          <p><strong>Focus:</strong> Semiconductor independence and general AI capabilities</p>
+          <p><strong>Strategic Context:</strong> Response to supply chain vulnerabilities exposed during pandemic</p>
+        </div>
+      </div>
+      <div class="timeline-container right">
+        <div class="timeline-content">
+          <h3>2023: Targeted Strategic Investments</h3>
+          <p><strong>Programs:</strong> European Chips Act, India AI Mission</p>
+          <p><strong>Focus:</strong> Clearer strategic objectives and ecosystem development</p>
+          <p><strong>Strategic Context:</strong> Recognition of AI as critical strategic technology</p>
+        </div>
+      </div>
+      <div class="timeline-container left">
+        <div class="timeline-content">
+          <h3>2025: Refinement and Regulation</h3>
+          <p><strong>Programs:</strong> European Chips Act 2.0, US Framework for AI Diffusion, EAR Control of Model Weights, Foreign Direct Product Rule</p>
+          <p><strong>Focus:</strong> Regulatory frameworks and addressing gaps in initial approaches</p>
+          <p><strong>Strategic Context:</strong> Shift from building capacity to establishing control</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 5. Semiconductor Funding and AI Containment -->
+    <h2>5. Semiconductor Funding and AI Containment</h2>
+    
+    <div class="subsection">
+      <h3>Why Hardware Control is Effective for AI Containment</h3>
+      <div class="grid-container">
+        <div class="grid-item">
+          <h4>Physical Control</h4>
+          <p class="summary">Semiconductor fabrication facilities are massive physical installations that require billions in investment and can't be easily hidden or replicated. Their physical nature makes them easier to monitor and control than software.</p>
+        </div>
+        <div class="grid-item">
+          <h4>Supply Chain Leverage</h4>
+          <p class="summary">Advanced chips require equipment and materials from multiple countries. The Netherlands (ASML), Japan (Tokyo Electron), and the US (Applied Materials, Lam Research) dominate key equipment segments, creating multiple control points.</p>
+        </div>
+        <div class="grid-item">
+          <h4>Technical Barriers</h4>
+          <p class="summary">Leading-edge manufacturing requires expertise that takes years to develop. Even with significant investment, establishing competitive fabrication capability takes 5-10 years of focused effort.</p>
+        </div>
+        <div class="grid-item">
+          <h4>Computational Ceiling</h4>
+          <p class="summary">By controlling access to advanced compute hardware, countries can effectively limit the scale of AI models that competitors can develop, creating a computational ceiling that's hard to circumvent.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 6. Public vs Private Investment -->
+    <h2>6. Public vs Private Investment</h2>
+    
+    <div class="chart-container">
+      <h3>Public vs Private Investment Ratios by Program</h3>
+      <div style="display: flex; justify-content: space-around; margin-top: 30px;">
+        <div style="text-align: center; width: 200px;">
+          <div style="position: relative; width: 150px; height: 150px; margin: 0 auto;">
+            <svg viewBox="0 0 36 36" width="150px" height="150px">
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#eeeeee" stroke-width="3"></path>
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#3498db" stroke-width="3" stroke-dasharray="17, 100"></path>
+              <text x="18" y="20.5" text-anchor="middle" font-size="8">17% Public</text>
+            </svg>
+          </div>
+          <p><strong>USA CHIPS Act</strong><br>Public: 17% / Private: 83%<br>($52.7B public triggers ~$265B private)</p>
+        </div>
+        <div style="text-align: center; width: 200px;">
+          <div style="position: relative; width: 150px; height: 150px; margin: 0 auto;">
+            <svg viewBox="0 0 36 36" width="150px" height="150px">
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#eeeeee" stroke-width="3"></path>
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#3498db" stroke-width="3" stroke-dasharray="26, 100"></path>
+              <text x="18" y="20.5" text-anchor="middle" font-size="8">26% Public</text>
+            </svg>
+          </div>
+          <p><strong>European Chips Act</strong><br>Public: 26% / Private: 74%<br>(€11B public mobilizes €32B private)</p>
+        </div>
+        <div style="text-align: center; width: 200px;">
+          <div style="position: relative; width: 150px; height: 150px; margin: 0 auto;">
+            <svg viewBox="0 0 36 36" width="150px" height="150px">
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#eeeeee" stroke-width="3"></path>
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#3498db" stroke-width="3" stroke-dasharray="85, 100"></path>
+              <text x="18" y="20.5" text-anchor="middle" font-size="8">85% Public</text>
+            </svg>
+          </div>
+          <p><strong>India AI Mission</strong><br>Public: 85% / Private: 15%<br>Primarily government funded</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 7. Historical Comparison -->
+    <h2>7. Historical Comparison with Previous Technology Competitions</h2>
+    
+    <div class="subsection">
+      <table>
+        <tr>
+          <th>Technology Race</th>
+          <th>Time Period</th>
+          <th>Funding Model</th>
+          <th>Key Differences from AI Containment</th>
+        </tr>
+        <tr>
+          <td>Space Race</td>
+          <td>1957-1975</td>
+          <td>Almost entirely government-funded</td>
+          <td>Much smaller private sector role; clearly defined "finish line" goals</td>
+        </tr>
+        <tr>
+          <td>Nuclear Development</td>
+          <td>1940s-1960s</td>
+          <td>Government-led with military focus</td>
+          <td>Stricter classification; more centralized control; fewer civilian applications</td>
+        </tr>
+        <tr>
+          <td>Internet Development</td>
+          <td>1970s-1990s</td>
+          <td>Initial government funding then private sector led</td>
+          <td>Designed for openness rather than control; fewer hardware dependencies</td>
+        </tr>
+        <tr>
+          <td>AI Containment</td>
+          <td>2020s-Present</td>
+          <td>Public-private partnerships with varied ratios</td>
+          <td>Global supply chains; faster innovation cycles; dual development/restriction focus</td>
+        </tr>
+      </table>
+    </div>
+    
+    <!-- 8. Economic and Geopolitical Impacts -->
+    <h2>8. Economic and Geopolitical Impacts</h2>
+    
+    <div class="grid-container">
+      <div class="grid-item">
+        <h3>Economic Impacts</h3>
+        <ul class="summary">
+          <li><strong>Regional Manufacturing Clusters</strong>: Formation of semiconductor ecosystems around major funding sources</li>
+          <li><strong>Potential Overcapacity</strong>: Risk of manufacturing overcapacity as multiple regions invest simultaneously</li>
+          <li><strong>Increasing Development Costs</strong>: Rising costs for AI development, favoring well-funded actors</li>
+          <li><strong>New Specializations</strong>: Emergence of specialized roles in global AI supply chains based on competitive advantage</li>
+        </ul>
+      </div>
+      
+      <div class="grid-item">
+        <h3>Geopolitical Impacts</h3>
+        <ul class="summary">
+          <li><strong>Technology Blocs</strong>: Formation of aligned groups centered around major funding sources and regulatory frameworks</li>
+          <li><strong>New Dependencies</strong>: Creation of new technology dependencies and alliances</li>
+          <li><strong>Strategic Industry Redefinition</strong>: AI capability becoming a defining factor in national

@@ -1,0 +1,165 @@
+--- Page 1 ---
+ 
+ 
+ 
+  CALL FOR EVIDENCE  
+FOR AN IMPACT ASSESSMENT  
+This document aims to inform the public and stakeholders  on the Commission's future legislative work  so they 
+can provide feedback on the Commission's understanding of the problem and possible solutions and  give any 
+relevant information that they may have, including on possible impacts of the different options.  
+TITLE OF THE INITIATIVE  Cloud and AI Development Act 
+LEAD DG (RESPONSIBLE UNIT )  Directorate ‑General for Communications Networks, Content and Technology  – 
+Unit E2 - Cloud and Software  
+LIKELY TYPE OF INITIATIVE  Legislative proposal  
+INDICATIVE TIMETABLE  Q4 2025 / Q1 2026  
+ADDITIONAL INFORMATION  Cloud computing | Shaping Europe’s digital future  
+This document is for information purposes only. It does not prejudge the final decision of the Commission on whether this 
+initiative will be pursued or  on its final content. All elements of the initiative described, including its timing, are subject to 
+change.  
+A. Political c ontext , problem definition and subsidiarity check    
+Political context (max 10 lines)  
+Current estimates and  projections of European computing infrastructure  point to a gap between available 
+capacity and needs, in particular  to accommodate the demands stemming from AI . The 2024 Draghi report  
+recognize s the importance of increasing computational capacity  in the EU  as a critical component of a mature 
+data economy which underpins many established and emerging digital use cases , particularly for AI 
+development . Against this backdrop , the Cloud and AI Development Act is one of the headline digital polic ies 
+outlined in the 2025 Competitiveness Compass  and listed in the Mission letter  to Executive Vice -President  Henna 
+Virkkunen  alongside  a single EU -wide cloud policy for public administrations and public procurement . This 
+initiative is part of the actions foreseen in the AI Continent Action Plan.   
+Problem the initiative aims to tackle  (max 20 lines)  
+Training , fine -tuning,  and running  AI models demand  massive computational resources.  While training requires 
+large centralised computational capacity, the more decentralis ed cloud and edge computing are key enablers of 
+smaller fine -tuning operations and of inference.  Data centres play a key role in housing and running the 
+necessary devices and equipment. The EU c urrently lags behind the US and China in terms of available data 
+centre capacity. The initiative aims to  tackle the currently unfavo urable conditions for the private sector to close 
+this capacity gap in a way that prioritises highly sustainable solutions.  
+To this end, the initiative seeks to address the problems that currently inhibit the expansion of the  EU’s data 
+centre  capacity . These include difficulties  in accessing natural resources (energy, water, land), as well as  
+complicated  and slow permitting processes , with approaches differing between Member State s. The construction 
+process is highly capital -intensive, creating barriers of entry for new players, and can be negatively affected by 
+difficulties in obtaining technology components  and capital . The energy and water consumption of data centres 
+is rising and  expanding capacity can further strain such  resources , particularly in view of  the current strong 
+geographical concentrat ion of data centres in the  North -West of the  EU. Technological innovation  in data centre 
+equipment and operations  promises significant resource savings but remains underexplo ited. At the same time, 
+high energy prices negativel y affect the competitiveness of the sector  in the EU .  
+Another problem that the initiative seeks to tackle is the lack of a competitive  EU-based  offer of cloud computing 
+services  at sufficient scale  to serve highly  critical use cases  with particular ly high security  needs , as found  in 
+various economic sectors  and the public sector .   
+Basis for EU action (legal basis and s ubsidiarity check )  
+Legal basis  
+This intervention will be based on Art 114 of the Treaty on the Functioning of the European Union (TFEU), whose 
+objective is the establishment and functioning of the internal market by enhancing measures for the 
+approximation of national rules.  The intervention would advance  the functioning of the internal market  by ensuring  
+Ref. Ares(2025)2878100 - 09/04/2025
+
+
+--- Page 2 ---
+ 
+    
+            2 that EU businesses and public administrations can benefit from  geographically balanced access to cloud and 
+edge computing  services , including for the development and adoption  of AI.  
+The intervention will also ensure the conditions necessary for the competitiveness and innovation capacity of the 
+Union and  will therefore  also be based on Article 173(3) TFEU. Specifically, the intervention would boost the 
+availability of computational capacity, for the benefit of users in the private and public sector ; facilitate the 
+development and uptake of innovative compute solutions in the EU, including for the benefit of  start-ups and 
+SMEs ; and encourage new and targeted investment in the EU’s digital infrastructure  and services .  
+Practical need for EU action  
+While  Member States can in principle enact appropriate measures at national level, the problems identified have 
+the same underlying causes across the EU and thus require a coordinated and harmonised approach , especially 
+in light of the objective for the EU to  becom e an AI continent  and in order to meet the EU’s 2030 Digital Decade 
+targets .  
+As data flows freely in the EU , purely national approaches to investing in  the infrastructure that powers data 
+storage and processing  would not represent an efficient use of financial resources. National approaches  could 
+further reinforce the geographical concentration of  data centres  and would risk leaving unexploited the 
+considerations of efficient distribution of such infrastructure throughout the EU territory.  National approaches t o 
+overcoming bottlenecks such as access to natural resources  or capital could result in  further geographical 
+concentration  and lead to a further fragmentation of the rules applicable to this sector .  
+B. Objectives and policy options (max 20 lines)  
+The initiative  will create the right conditions for the private sector to build out sustainable cloud and edge  capacity 
+in the EU  and address the current  data centre capacity  gap with t he underlying objective to strengthen the EU’s 
+competitiveness  and sovereignty. The initiative’s objectives  fall into three main categories.  
+• Advance research and innovation to make the EU a leader in resource -efficient data processing 
+infrastructures, software, and services  by advanc ing the sustainab ility of  AI data processing along the 
+compute continuum  and, on the data centre level, by improving power management, cooling, general 
+operations, and integration into energy and water systems .  
+• Triple the EU’s data centre capacity  within the next 5 -7 years  by promoting and creating the right 
+conditions for attracting  and supporting  investment in sustainable data centre s across the EU , notably 
+by tackling obstacles  such as long permitting times  and difficulties in accessing  energy, water, land, and 
+capital , and by offering possible financial support in line with applicable State aid rules to data centres 
+with a high innovation and sustainability contribution .  
+• Ensure that  a set of narrowly defined  highly  critical use cases can be  operated using highly secure  EU-
+based cloud capacity , while creating the conditions for the EU cloud industry to develop secure 
+processing capabilities to serve the needs of these highly  critical use cases.  
+At this stage of reflection, the Commission is considering  the following preliminary set of policy options :  
+Option 0  is the baseline scenario  against  which the further policy options will be compared. It will take into 
+account existing national and EU policies and important technological or social developments.  
+Option 1  is the non-legislative  option . This option would foresee the adoption of  non-binding measures such 
+as the set -up of a network of Member States tasked with monitoring their strategies  to achieve  the Digital Decade 
+targets  or Guidelines for Member States to coordinate their cloud strategies, investments and designation of 
+suitable sites for new data centres.  
+Option 2  is the soft regulatory  approac h. Under this option, the Commission could adopt binding measures 
+through  a Directive , leaving  national authorities the choice of form and methods to address their computing 
+capacity deficit . 
+Option 3  is the regulatory approach . Under this option, binding measures  could be defined  in the form of  a 
+Regulation . This option would identify a set of measures to be applied across  Member State s for the 
+harmonisation of cloud policies in order to address the  comput ational  capacity deficit and coordinat e the support 
+for the emergence of a trustworthy EU infrastructure ecosystem.  
+Option 4  is the comprehensive regulatory approach , which would  focus on  binding measures to address the 
+comput ational  capacity deficit  in the EU  complemented with  the creation of a distinct independent agency to 
+ensure  consistent enforcement  and manage Member States’  joint invest ment  to develop and own a trustworthy 
+European cloud infrastructure ecosystem .   
+C.  Likely impacts  (max 10 lines)  
+
+--- Page 3 ---
+ 
+    
+            3 This initiative is expected to have the following impacts:  
+• Economic by stimulating  research and development  as well as investment ; boosting resilience  and 
+technological sovereignty , strengthening security of supply  in comput ational  capacity  and cloud services ; 
+and increasing  the number  and quality of solutions  available to  businesses and consumers   
+• Social by boosting digital  public services, and through spillover effects on  employment  and contributing 
+to overcoming the digital divide .  
+• Environmental  and sustainability  by boosting the rollout of sustainable infrastructures and improving  
+resource use (e.g. land, water and energy ). 
+This initiative also aims at improv ing the business environment  for companies operating in the EU, including  for 
+SMEs  through simplification and broader stimulation  of the investment environment.  
+D. Better regulation  instruments (max 10 lines)  
+Impact assessment  
+An impact assessment , supported by evidence collection and stakeholder consultation s, will be carried out in 
+2025 to inform the Commission ’s proposal.  It will be prepared  and conducted  in line with the Better Regulation 
+guidelines  and toolbo x. The impact assessment will also benefit from the findings of a study that the Commission 
+has contracted to collect high -quality evidence . The contractor carrying out this study will also engage with 
+stakeholder s through additional surveys and workshops in the first half of 2025.  
+Consultation strategy   
+The Commission will consult widely to gather key information and ensure that the public interest is well reflected 
+in the design of a possible intervention on the development of Cloud and AI in Europe . 
+In parallel to the publication of this Call for Eviden ce to gather  feedback on the Commission's understanding of 
+the problem , possible solutions and any relevant information on the impact of the different options  considered , a 
+public consultation will be  launched to gather specific views on different aspects  related to this initiative. It will be 
+published  on the 'Have your Say'  portal  and will be  in English, French  and German  A factual summary report will 
+be published on the Commission’s website after the public consultation is closed.   
+In addition, targeted consultations with experts covering different domains will be carried out by an external 
+contractor through a s tudy supporting the impact assessment . In addition to targeted consultations, the study will 
+also encompass a broader stakeholder workshop. The Commission will summarise the findings of the 
+consultation  activities  in a synopsis report  which will be annexed  to the impact assessment . 
+Why we are consulting?  
+Through this consultation, the Commission would like to gather:  
+• stakeholders’ views on the  current and emerging  problems related to the  gap in EU comput ational  
+capacity  with a focus on cloud and edge computing and their enabling technologies ; 
+• stakeholders’ views on the possible policy approaches to address such problems, the available options 
+and their potential impact s; and 
+• evidence and data underpinning these views .   
+Target audience  
+This consultation aims to gather the views of a variety of stakeholders. These include:  
+• Public authorities : local, regional, national and European Union bodies   
+• Cloud, edge, telco providers  
+• Data centre operators   
+• AI developers  and providers  
+• Cloud, edge, telco, and AI users  
+• Financial institutions , investors , funds  of digital infrastructure   
+• Other organizations than the above, namely academic and research institutions, consumer 
+organisations , non-governmental organisations , and business associations   
+• Citizens   
+ 
+All stakeholders are invited to participate . 
+ 

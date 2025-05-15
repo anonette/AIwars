@@ -1,0 +1,18 @@
+{
+  "programs": [
+    {
+      "country": "USA",
+      "policyName": "CHIPS Act",
+      "year": 2022,
+      "fundingAmount": "$52.7 billion",
+      "fundingUSD": 52700000000,
+      "fundingBreakdown": {
+        "manufacturing": 0.74,
+        "researchAndDevelopment": 0.25,
+        "security": 0.01
+      },
+      "publicPrivateRatio": {
+        "public": 0.17,
+        "private": 0.83
+      },
+      "scope": "Export controls, sub
