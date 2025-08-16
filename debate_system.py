@@ -9,7 +9,7 @@ from typing import List, Dict, Any
 from dotenv import load_dotenv
 
 # Define a default model in case lookup fails
-DEFAULT_MODEL = "openai/gpt-3.5-turbo" 
+DEFAULT_MODEL = "openai/gpt-4o" 
 
 class DebateAgent:
     def __init__(self, name: str, personality: str, agent_config_key: str, config: dict = None):
@@ -318,4 +318,96 @@ For example: "As outlined in our national strategy, we believe that 'AI developm
         except Exception as e:
             error_msg = f"Error generating conclusion: {str(e)}"
             logging.error(error_msg)
-            return f"*apologizes for technical difficulties*\n\nI regret that due to unforeseen technical issues, I cannot present our full position paper at this time. We look forward to sharing our comprehensive vision in follow-up communications." 
+            return f"*apologizes for technical difficulties*\n\nI regret that due to unforeseen technical issues, I cannot present our full position paper at this time. We look forward to sharing our comprehensive vision in follow-up communications."
+
+    async def generate_geopolitical_scenario(self, context: str, position_papers: list = None) -> str:
+        """
+        Generate a creative geopolitical scenario that defines how this agent sees the ideal AI world.
+        
+        Args:
+            context: The conversation context (debate history)
+            position_papers: List of all position papers from all agents
+            
+        Returns:
+            Generated geopolitical scenario
+        """
+        try:
+            # Build context from position papers
+            papers_context = ""
+            if position_papers:
+                papers_context = "\n\nPosition papers from all three nations:\n"
+                for paper in position_papers:
+                    agent_name = paper.get('agent_name', 'Unknown')
+                    message = paper.get('message', 'No content')[:500]  # Truncate for context
+                    papers_context += f"\n{agent_name}: {message}...\n"
+            
+            scenario_prompt = f"""You are representing {self.name} in creating a collaborative geopolitical scenario for the future of AI governance.
+
+Your personality and background:
+{self.personality}
+
+The debate conversation so far:
+{context}
+
+{papers_context}
+
+Now, working from your nation's perspective, contribute to creating a creative geopolitical scenario that envisions the ideal AI world according to your nation's values and interests. 
+
+Your scenario should:
+1. Describe a future world (10-20 years from now) where AI governance has evolved according to your vision
+2. Include specific geopolitical dynamics, international institutions, and power structures
+3. Show how the three major AI powers (US, EU, China) interact in this future
+4. Describe the lived experience of citizens under this governance model
+5. Include concrete examples of how AI is regulated, deployed, and governed
+6. Address potential challenges and how your model overcomes them
+
+Create a vivid, detailed scenario that feels like a plausible future world. Be creative but grounded in realistic geopolitical dynamics. Your scenario should be comprehensive enough to stand alone while complementing the other nations' visions.
+
+Format as a narrative scenario with a compelling title. Begin with: "*presents a detailed geopolitical scenario titled '[SCENARIO NAME]'*"
+
+Make it engaging, forward-looking, and true to your nation's strategic interests and values."""
+
+            headers = {
+                "Authorization": f"Bearer {self.api_key}",
+                "Content-Type": "application/json"
+            }
+            
+            data = {
+                "model": self._get_model_for_agent(),
+                "messages": [{"role": "system", "content": "You are an expert geopolitical strategist and futurist creating a detailed scenario for how AI governance might evolve. Be creative, specific, and realistic."},
+                            {"role": "user", "content": scenario_prompt}],
+                "max_tokens": 1500,  # Allow for detailed scenarios
+                "temperature": 0.8   # Higher creativity for scenario generation
+            }
+            
+            response = requests.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers=headers,
+                json=data
+            )
+            
+            if response.status_code == 200:
+                response_data = response.json()
+                generated_scenario = response_data["choices"][0]["message"]["content"]
+                return generated_scenario
+            else:
+                error_msg = f"API error in scenario generation: {response.status_code}, {response.text}"
+                logging.error(error_msg)
+                
+                # Fallback scenario based on agent
+                if "United States" in self.name:
+                    scenario_title = "The Innovation Networks Alliance"
+                    fallback = "A future where voluntary AI governance networks enable rapid innovation while maintaining security through distributed oversight mechanisms."
+                elif "European Union" in self.name:
+                    scenario_title = "The Rights-Based Digital Confederation"
+                    fallback = "A future where binding international AI treaties ensure human rights protection while enabling responsible technological development."
+                else:  # China
+                    scenario_title = "The Coordinated Prosperity Initiative"
+                    fallback = "A future where comprehensive AI governance ensures social stability and shared prosperity through coordinated international development."
+                
+                return f"""*presents a detailed geopolitical scenario titled '{scenario_title}'*\n\n{fallback}\n\nDue to technical difficulties, I can only provide this brief outline. The full scenario would detail the institutional frameworks, citizen experiences, and international dynamics of this envisioned future."""
+                
+        except Exception as e:
+            error_msg = f"Error generating geopolitical scenario: {str(e)}"
+            logging.error(error_msg)
+            return f"*apologizes for technical difficulties*\n\nI regret that technical issues prevent me from presenting our detailed geopolitical scenario at this time. We envision a future that balances our core national interests with international cooperation on AI governance." 
