@@ -87,14 +87,14 @@ topics:
     description: "The international competition for AI leadership and standard-setting"
   - name: "Digital Sovereignty"
     description: "National control over data, algorithms, and technological infrastructure"
-  - name: "Machinic Federation"
-    description: "Scenario exploring decentralized governance with autonomous algorithmic systems"
-  - name: "Technocratic Fortress"
-    description: "Scenario focusing on regulatory strength and technological self-sufficiency"
-  - name: "Infrastructural Vassalage"
-    description: "Scenario examining dependence on external tech infrastructure and its consequences"
-  - name: "Digital Non-Alignment"
-    description: "Scenario exploring sovereignty through strategic neutrality in technology governance"
+  - name: "Decentralized AI Governance"
+    description: "Approaches to distributed control and decision-making in AI systems"
+  - name: "AI Self-Sufficiency"
+    description: "National strategies for technological independence in AI development"
+  - name: "AI Infrastructure Dependencies"
+    description: "Global supply chains and technological interdependencies in AI"
+  - name: "AI Neutrality and Non-Alignment"
+    description: "Strategies for maintaining independence in global AI governance"
 
 debate_styles:
   diplomatic:
