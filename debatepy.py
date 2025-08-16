@@ -1,6 +1,8 @@
 import streamlit as st
 from debate_manager import DebateManager
 from debate_system import DebateAgent
+from document_integration import DocumentEnabledDebateAgent, create_document_enabled_agents
+from document_retrieval import DocumentStore
 import asyncio
 import json
 import yaml
@@ -8,6 +10,7 @@ from datetime import datetime
 from debate_logger import DebateLogger
 import re
 import os
+import logging
 
 def load_config():
     try:
@@ -18,32 +21,59 @@ def load_config():
         return {}
 
 class StreamlitDebateManager:
-    def __init__(self, selected_topic=None, total_rounds=20):
+    def __init__(self, selected_topic=None, total_rounds=20, use_documents=True):
         self.config = load_config()
         self.debate_prompt = self.config.get('debate_prompt', '')
         self.total_rounds = total_rounds
         self.conclusion_phase = False # This is internal to manager logic
+        self.use_documents = use_documents
+        
+        # Initialize document store if using documents
+        self.document_store = None
+        if self.use_documents:
+            try:
+                self.document_store = DocumentStore(documents_dir="agent_documents")
+                logging.info(f"Initialized document store with {len(self.document_store.document_data)} documents")
+            except Exception as e:
+                logging.error(f"Failed to initialize document store: {e}")
+                self.use_documents = False
         
         agent_configs = self.config.get('agents', {})
-        self.agent_us = DebateAgent(
-            name=agent_configs['openai']['name'],
-            personality=agent_configs['openai']['personality'],
-            agent_config_key='openai',
-            config=self.config
-        )
-        self.agent_china = DebateAgent(
-            name=agent_configs['deepseek']['name'],
-            personality=agent_configs['deepseek']['personality'],
-            agent_config_key='deepseek',
-            config=self.config
-        )
-        self.agent_eu = DebateAgent(
-            name=agent_configs['european_union']['name'],
-            personality=agent_configs['european_union']['personality'],
-            agent_config_key='european_union',
-            config=self.config
-        )
-        self.agents = [self.agent_us, self.agent_china, self.agent_eu]
+        
+        # Create agents based on whether we're using documents
+        if self.use_documents and self.document_store:
+            # Use document-enabled agents
+            self.agents = create_document_enabled_agents(self.config, self.document_store)
+            if len(self.agents) >= 3:
+                self.agent_us = self.agents[0]
+                self.agent_china = self.agents[1]
+                self.agent_eu = self.agents[2]
+            else:
+                # Fallback if document-enabled creation fails
+                logging.warning("Failed to create document-enabled agents, falling back to standard agents")
+                self.use_documents = False
+        
+        if not self.use_documents:
+            # Use standard agents
+            self.agent_us = DebateAgent(
+                name=agent_configs['openai']['name'],
+                personality=agent_configs['openai']['personality'],
+                agent_config_key='openai',
+                config=self.config
+            )
+            self.agent_china = DebateAgent(
+                name=agent_configs['deepseek']['name'],
+                personality=agent_configs['deepseek']['personality'],
+                agent_config_key='deepseek',
+                config=self.config
+            )
+            self.agent_eu = DebateAgent(
+                name=agent_configs['european_union']['name'],
+                personality=agent_configs['european_union']['personality'],
+                agent_config_key='european_union',
+                config=self.config
+            )
+            self.agents = [self.agent_us, self.agent_china, self.agent_eu]
         self.logger = DebateLogger()
         
         topics_from_config = self.config.get('topics', [])
