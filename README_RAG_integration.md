@@ -31,13 +31,63 @@ The AI Debate System now includes full RAG (Retrieval-Augmented Generation) capa
 
 ## How It Works
 
-1. **Document Search**: When an agent needs to respond, it first searches its document database for relevant content based on the current topic and discussion context.
+### Document Processing Pipeline
 
-2. **Context Augmentation**: The agent's personality is temporarily augmented with relevant document excerpts and citation examples.
+When documents are loaded (using `load_texts_documents.py`):
+1. **PDF Extraction**: The system uses PyPDF2 to extract text from PDF files, preserving page numbers
+2. **Text Chunking**: Documents are split into semantic chunks (around 1000 characters) at paragraph boundaries
+3. **Embedding Creation**: Each chunk is converted into a vector embedding using the `all-MiniLM-L6-v2` model for semantic search
+4. **Storage**: Documents are organized by agent (US, China, EU) in the `agent_documents/` directory
 
-3. **Response Generation**: The agent generates its response based on the document evidence, ensuring positions are grounded in actual policy documents.
+### Document Retrieval Process
 
-4. **Citation Tracking**: The system tracks which documents were used and includes citations in the response.
+When an agent needs to respond during a debate:
+
+1. **Query Formation**: The system combines:
+   - The debate topic
+   - The last message from another agent
+   - Creates a search query like: "climate change policy China's position on carbon emissions"
+
+2. **Dual Search Strategy**:
+   - **Semantic Search** (Primary): Uses cosine similarity between query embeddings and document chunk embeddings
+   - **Keyword Search** (Fallback): Simple text matching if semantic search fails
+
+3. **Relevance Filtering**:
+   - Only searches documents assigned to that specific agent
+   - Returns top 3-5 most relevant document chunks
+   - Filters by similarity threshold (0.3) to ensure quality
+
+### Integration into Agent Responses
+
+The `DocumentEnabledDebateAgent` class:
+
+```python
+# When generating a response:
+1. Searches for relevant documents based on the current context
+2. Retrieves document snippets (limited to 300 characters each)
+3. Augments the agent's personality with document context:
+   "Based on your policy documents, consider these relevant points:
+   • China's Belt and Road Initiative focuses on... (Source: BRI_Policy.pdf)
+   • Economic cooperation through infrastructure... (Source: China_Trade.pdf)"
+4. Generates response using this augmented context
+5. Adds citations to the response
+```
+
+### Example Flow
+
+When the US agent is asked about climate policy:
+1. System searches US documents for "climate policy"
+2. Finds relevant chunks from uploaded PDFs like "US_Climate_Strategy.pdf"
+3. Extracts key points: "The US commits to 50% emission reduction by 2030..."
+4. Agent incorporates this into response: "According to our climate strategy, we are committed to a 50% emission reduction by 2030, as outlined in our national policy framework."
+
+### Key Features
+
+- **Agent-Specific Knowledge**: Each agent only accesses their own documents
+- **Dynamic Context**: Agents reference different documents based on the topic
+- **Source Attribution**: Responses include citations to specific documents
+- **Semantic Understanding**: The embedding model understands conceptual relationships, not just keywords
+- **Fallback Mechanism**: If document retrieval fails, agents still function with base personalities
 
 ## Setting Up RAG
 
