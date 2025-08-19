@@ -216,7 +216,7 @@ class DebateLogger:
                             image = Image.open(BytesIO(image_bytes))
                             
                             # Resize to smaller dimensions to reduce file size
-                            image = image.resize((512, 512), Image.LANCZOS)
+                            image = image.resize((256, 256), Image.LANCZOS)
                             
                             # Save with compression to reduce file size
                             sanitized_agent_name = agent_name.replace(" ", "_").replace("'", "").replace(",", "")  
@@ -245,7 +245,7 @@ class DebateLogger:
                                     image = Image.open(BytesIO(image_response.content))
                                     
                                     # Resize to smaller dimensions to reduce file size
-                                    image = image.resize((512, 512), Image.LANCZOS)
+                                    image = image.resize((256, 256), Image.LANCZOS)
                                     
                                     image.save(image_file, format="JPEG", quality=75, optimize=True)
                                     
@@ -310,4 +310,4 @@ if __name__ == "__main__":
     logger.log_error(
         "Connection Error",
         "Failed to connect to API endpoint"
-    ) 
+    )

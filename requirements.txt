@@ -11,7 +11,19 @@ watchdog>=3.0.0
 PyPDF2>=3.0.0
 numpy>=1.24.0
 Pillow>=10.0.0
+
+# Async enhancements
+asyncio>=3.4.3  # Core async functionality (usually included with Python)
+aiofiles>=23.2.1  # Async file operations
+aiodns>=3.1.1  # Async DNS resolver for better performance
+# cchardet>=2.1.7  # Optional: Faster character encoding detection (requires C++ build tools on Windows)
+brotli>=1.1.0  # Better compression support for aiohttp
+
+# Testing
+pytest>=8.0.0
+pytest-asyncio>=0.23.0  # For async test support
+
 # Optional but recommended for semantic search
 # These can be commented out if you don't need semantic search capabilities
 sentence-transformers>=2.2.2
-torch>=2.0.0 
+torch>=2.0.0

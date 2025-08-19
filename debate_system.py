@@ -123,8 +123,8 @@ Deliver only your spoken dialogue. Do NOT include any action phrase in your resp
                 "model": self._get_model_for_agent(), 
                 "messages": [{"role": "system", "content": "You are an AI agent in an international debate on AI governance. Provide only the spoken dialogue as your response, following the user's instructions for content and tone."},
                             {"role": "user", "content": dialogue_prompt}],
-                "max_tokens": 150,
-                "temperature": 0.7
+                "max_tokens": 800,  # Increased to allow full responses including theoretical analysis
+                "temperature": 0.9  # Increased for more creative and novel analysis
             }
             
             response = requests.post(
@@ -410,4 +410,4 @@ Make it engaging, forward-looking, and true to your nation's strategic interests
         except Exception as e:
             error_msg = f"Error generating geopolitical scenario: {str(e)}"
             logging.error(error_msg)
-            return f"*apologizes for technical difficulties*\n\nI regret that technical issues prevent me from presenting our detailed geopolitical scenario at this time. We envision a future that balances our core national interests with international cooperation on AI governance." 
+            return f"*apologizes for technical difficulties*\n\nI regret that technical issues prevent me from presenting our detailed geopolitical scenario at this time. We envision a future that balances our core national interests with international cooperation on AI governance."

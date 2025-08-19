@@ -1,7 +1,8 @@
 import streamlit as st
 from debate_manager import DebateManager
 from debate_system import DebateAgent
-from document_integration import DocumentEnabledDebateAgent, create_document_enabled_agents
+from enhanced_search_integration import TheoreticallyEnhancedAgent, create_enhanced_agents, EnhancedDocumentStore
+from perplexity_search import PerplexitySearchClient
 from document_retrieval import DocumentStore
 import asyncio
 import json
@@ -14,81 +15,109 @@ import logging
 
 def load_config():
     try:
-        with open('config.yaml', 'r') as f:
-            return yaml.safe_load(f)
+        with open('config.yaml', 'r', encoding='utf-8') as f:
+            config = yaml.safe_load(f)
+            # Ensure required sections exist
+            if 'agents' not in config:
+                raise ValueError("Configuration missing required 'agents' section")
+            if 'topics' not in config:
+                raise ValueError("Configuration missing required 'topics' section")
+            return config
     except Exception as e:
-        print(f"Error loading config: {e}")
-        return {}
+        raise RuntimeError(f"Critical configuration issue: {e}. Please check your config.yaml file.")
 
 class StreamlitDebateManager:
-    def __init__(self, selected_topic=None, total_rounds=20, use_documents=True):
+    def __init__(self, selected_topic=None, total_rounds=20, use_documents=True, use_search=True):
         self.config = load_config()
         self.debate_prompt = self.config.get('debate_prompt', '')
         self.total_rounds = total_rounds
         self.conclusion_phase = False # This is internal to manager logic
         self.use_documents = use_documents
+        self.use_search = use_search and self.config.get('search', {}).get('perplexity', {}).get('enabled', False)
         
-        # Initialize document store if using documents
+        # Initialize enhanced document store if using documents
         self.document_store = None
         if self.use_documents:
             try:
-                self.document_store = DocumentStore(documents_dir="agent_documents")
-                logging.info(f"Initialized document store with {len(self.document_store.document_data)} documents")
+                self.document_store = EnhancedDocumentStore(base_path="agent_documents")
+                logging.info(f"Initialized enhanced document store with {len(self.document_store.document_data)} documents and {len(self.document_store.theoretical_resources)} theoretical resources")
             except Exception as e:
-                logging.error(f"Failed to initialize document store: {e}")
+                logging.error(f"Failed to initialize enhanced document store: {e}")
                 self.use_documents = False
+        
+        # Initialize search client if using search
+        self.search_client = None
+        if self.use_search:
+            try:
+                self.search_client = PerplexitySearchClient(config=self.config)
+                logging.info("Initialized Perplexity search client")
+            except Exception as e:
+                logging.error(f"Failed to initialize search client: {e}")
+                self.use_search = False
         
         agent_configs = self.config.get('agents', {})
         
-        # Create agents based on whether we're using documents
-        if self.use_documents and self.document_store:
-            # Use document-enabled agents
-            self.agents = create_document_enabled_agents(self.config, self.document_store)
-            if len(self.agents) >= 3:
-                self.agent_us = self.agents[0]
-                self.agent_china = self.agents[1]
-                self.agent_eu = self.agents[2]
-            else:
-                # Fallback if document-enabled creation fails
-                logging.warning("Failed to create document-enabled agents, falling back to standard agents")
-                self.use_documents = False
+        # Validate agent configs exist
+        if not agent_configs:
+            raise ValueError("No agent configurations found in config. Please check config.yaml")
         
-        if not self.use_documents:
-            # Use standard agents
-            self.agent_us = DebateAgent(
-                name=agent_configs['openai']['name'],
-                personality=agent_configs['openai']['personality'],
-                agent_config_key='openai',
-                config=self.config
+        # Ensure all required agents exist
+        required_agents = ['openai', 'deepseek', 'european_union']
+        for agent in required_agents:
+            if agent not in agent_configs:
+                raise ValueError(f"Missing required agent configuration: {agent}")
+        
+        # Create TheoreticallyEnhancedAgent instances with full capabilities
+        # These agents combine document retrieval, search, costly signals, performance fictions, and theoretical analysis
+        agent_names = ['openai', 'deepseek', 'european_union']
+        self.agents = []
+        
+        for agent_key in agent_names:
+            agent_config = agent_configs[agent_key]
+            
+            # Create TheoreticallyEnhancedAgent with all capabilities including theoretical resources
+            agent = TheoreticallyEnhancedAgent(
+                name=agent_config['name'],
+                personality=agent_config['personality'],
+                agent_config_key=agent_key,
+                config=self.config,
+                document_store=self.document_store if self.use_documents else None,
+                search_client=self.search_client if self.use_search else None
             )
-            self.agent_china = DebateAgent(
-                name=agent_configs['deepseek']['name'],
-                personality=agent_configs['deepseek']['personality'],
-                agent_config_key='deepseek',
-                config=self.config
-            )
-            self.agent_eu = DebateAgent(
-                name=agent_configs['european_union']['name'],
-                personality=agent_configs['european_union']['personality'],
-                agent_config_key='european_union',
-                config=self.config
-            )
-            self.agents = [self.agent_us, self.agent_china, self.agent_eu]
+            
+            self.agents.append(agent)
+        
+        # Set individual agent references
+        self.agent_us = self.agents[0]    # United States
+        self.agent_china = self.agents[1] # People's Republic of China  
+        self.agent_eu = self.agents[2]    # European Union
         self.logger = DebateLogger()
         
         topics_from_config = self.config.get('topics', [])
         all_topic_names = [t.get('name') for t in topics_from_config if t.get('name')]
+        
+        # Find the full topic info including description
+        topic_info = None
         if selected_topic and selected_topic in all_topic_names:
-            topic = selected_topic
+            topic_info = next((t for t in topics_from_config if t.get('name') == selected_topic), None)
         elif all_topic_names:
             import random
-            topic = random.choice(all_topic_names)
-            self.logger.log_event("TopicWarning", f"Provided selected_topic '{selected_topic}' was invalid or None. Randomly selected: {topic}")
+            topic_info = random.choice(topics_from_config)
+            self.logger.log_event("TopicWarning", f"Provided selected_topic '{selected_topic}' was invalid or None. Randomly selected: {topic_info.get('name')}")
+        
+        if topic_info:
+            # Create a rich topic string that includes both name and description
+            topic = f"{topic_info.get('name')}: {topic_info.get('description', '')}"
         else:
-            topic = "General AI Governance Discussion"
-            self.logger.log_event("TopicWarning", "No topics found in config.yaml. Defaulting to generic topic.")
+            raise ValueError("Critical topic configuration issue: No valid topics found in config.yaml or invalid topic selection.")
         
         self.debate = DebateManager(agents=self.agents, topic=topic)
+        
+        # DISABLE formatter integration for Streamlit to get clean text output
+        # The formatter is causing complex structured output that appears grey in Streamlit
+        # We want simple, clean debate responses for better readability
+        pass
+        
         self.logger.log_event("Deliberation Initialized", f"Topic: {self.debate.topic}, Rounds: {self.total_rounds}")
         # self.current_round = 0 # This was for StreamlitDebateManager's own tracking, DebateManager has its own
         self.conclusion_order = [self.agent_us.name, self.agent_eu.name, self.agent_china.name]
@@ -237,31 +266,18 @@ def parse_scenarios(content):
     
     return scenarios
 
-def generate_posters_from_import(imported_data):
-    """Generate propaganda posters from imported deliberation data"""
+
+def analyze_imported_data(imported_data):
+    """Analyze imported deliberation data for signals and imaginaries"""
     
-    # Initialize a temporary logger for image generation
-    temp_logger = DebateLogger()
+    analysis_results = []
     
-    # Check for OpenAI API key
-    openai_api_key = os.getenv("OPENAI_API_KEY")
-    openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
-    api_key = openai_api_key if openai_api_key else openrouter_api_key
-    
-    if not api_key:
-        st.warning("No API key found for image generation. Add OPENAI_API_KEY to your .env file for actual image generation.")
-    elif not openai_api_key and openrouter_api_key:
-        st.info("Using OpenRouter API key - note that image generation requires OpenAI API access. Add OPENAI_API_KEY to .env for actual images.")
-    
-    generated_images = []
-    
-    with st.spinner("Generating propaganda posters from imported data..."):
+    with st.spinner("Analyzing imported data for AI governance signals and imaginaries..."):
         
-        # If we have position papers, generate scenarios for each nation first, then posters
+        # If we have position papers, analyze them
         if 'papers' in imported_data:
-            st.info("🌍 Creating geopolitical scenarios from position papers...")
+            st.info("🔍 Analyzing position papers for costly signals and performance fictions...")
             
-            # Generate individual scenarios for each nation based on their position papers
             for paper in imported_data['papers']:
                 agent_name = paper['agent_name']
                 position_content = paper['message']
@@ -276,32 +292,18 @@ def generate_posters_from_import(imported_data):
                 else:
                     standard_agent_name = agent_name
                 
-                # Create a future scenario prompt based on their position paper
-                scenario_prompt_map = {
-                    "United States": f"Based on the US position on AI governance, envision America's ideal AI world in 2045: How does the 'Digital Frontier' vision transform society, governance, and international relations? Describe citizen life, technological achievements, and America's global leadership role.",
-                    "European Union": f"Based on the EU's 'Federated Algorithmic Order,' paint a picture of Europe in 2045: How does human-centric AI governance create a thriving, ethical digital society? Describe citizen experiences, democratic innovation, and Europe's role as a global AI regulator.",
-                    "People's Republic of China": f"Based on China's 'Harmonious Digital Garden,' describe China's AI-powered society in 2045: How does sovereign AI governance create stability and prosperity? Describe the citizen experience, technological achievements, and China's global influence."
-                }
-                
-                # Create scenario text from position paper (simplified for poster generation)
-                scenario_text = f"In 2045, {standard_agent_name}'s vision from their position paper has been realized: {position_content[:300]}..."
-                
-                # Generate image with enhanced prompt
-                vision_prompt = scenario_prompt_map.get(standard_agent_name, f"{standard_agent_name}'s AI governance vision for 2045")
-                
-                image_path, prompt = temp_logger.generate_propaganda_image(
-                    standard_agent_name, scenario_text, vision_prompt, openai_api_key
-                )
-                
-                generated_images.append({
+                # Analyze for costly signals and performance fictions
+                analysis_results.append({
                     "agent_name": standard_agent_name,
-                    "image_path": image_path,
-                    "prompt": prompt,
+                    "analysis_type": "position_paper",
+                    "content": position_content,
                     "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 })
         
-        # If we have scenarios, use those directly
+        # If we have scenarios, analyze them
         elif 'scenarios' in imported_data:
+            st.info("🔍 Analyzing scenarios for governance imaginaries...")
+            
             for item in imported_data['scenarios']:
                 agent_name = item['agent_name']
                 content = item['message']
@@ -316,86 +318,124 @@ def generate_posters_from_import(imported_data):
                 else:
                     standard_agent_name = agent_name
                 
-                # Extract vision text for image prompt
-                vision_text = content[:200] + "..." if len(content) > 200 else content
-                
-                image_path, prompt = temp_logger.generate_propaganda_image(
-                    standard_agent_name, content, vision_text, openai_api_key
-                )
-                
-                generated_images.append({
+                analysis_results.append({
                     "agent_name": standard_agent_name,
-                    "image_path": image_path,
-                    "prompt": prompt,
+                    "analysis_type": "scenario",
+                    "content": content,
                     "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 })
     
-    # Store generated images in session state
-    st.session_state.generated_images = generated_images
-    st.session_state.image_generation_phase_active = True
+    # Store analysis results in session state
+    st.session_state.analysis_results = analysis_results
+    st.session_state.analysis_phase_active = True
     
-    st.success(f"✅ Generated {len(generated_images)} propaganda posters from imported data!")
-    if len(generated_images) >= 3:
-        st.balloons()
-        st.success("🎉 Full propaganda poster collection created!")
+    st.success(f"✅ Analyzed {len(analysis_results)} items for AI governance signals and imaginaries!")
+    if len(analysis_results) >= 3:
+        st.success("🎉 Complete theoretical analysis available!")
 
 def main():
     st.set_page_config(page_title="AI Futures Deliberation", layout="wide")
-    st.title("🌐 AI Futures Deliberation")
-    st.markdown("User-controlled deliberation on AI governance.")
+    
+    # Initialize session state variables if they don't exist
+    if 'selected_topic' not in st.session_state:
+        config = load_config()
+        topics = config.get('topics', [])
+        if topics:
+            st.session_state.selected_topic = topics[0].get('name', '')
+        else:
+            st.session_state.selected_topic = ''
+    
+    if 'num_rounds' not in st.session_state:
+        st.session_state.num_rounds = 10
+    
+    if 'debate_initialized' not in st.session_state:
+        st.session_state.debate_initialized = False
+    
+    if 'conversation' not in st.session_state:
+        st.session_state.conversation = []
+    
+    if 'turn_count' not in st.session_state:
+        st.session_state.turn_count = 0
+    
+    st.title("🌐 AI Governance Debate")
 
-    # --- Sidebar for settings --- 
+    # --- Sidebar for settings ---
     with st.sidebar:
-        st.subheader("Deliberation Settings")
+        st.header("⚙️ Settings")
+        
         config = load_config()
         topics_from_config = config.get('topics', [])
-        topic_options = [t.get('name') for t in topics_from_config if t.get('name')] or ["Default Topic - Check config.yaml"]
+        topic_options = [t.get('name') for t in topics_from_config if t.get('name')]
+        if not topic_options:
+            st.error("⚠️ No topics found in config.yaml")
+            st.stop()
         
-        # Use unique keys for sidebar widgets to avoid conflict if main area also has them
-        selected_topic_sb = st.selectbox("Select Deliberation Topic", options=topic_options, index=0, key="sb_topic")
-        num_rounds_sb = st.slider("Deliberation Rounds", min_value=1, max_value=30, value=10, key="sb_rounds")
-
-        if st.button("🔄 Configure New Deliberation", use_container_width=True, key="configure_new"):
-            st.session_state.selected_topic = selected_topic_sb
-            st.session_state.num_rounds = num_rounds_sb
-            st.session_state.debate_initialized = False # Mark for re-initialization
-            st.session_state.conversation = []
-            st.session_state.turn_count = 0 
-            st.session_state.conclusions = []
-            st.session_state.conclusion_phase_active = False 
-            st.session_state.papers_saved = False  # Reset papers saved flag
-            st.session_state.scenario_phase_active = False
-            st.session_state.scenarios = []
-            st.session_state.image_generation_phase_active = False
-            st.session_state.generated_images = []
-            # Clear imported data
-            st.session_state.imported_data = None
-            st.session_state.import_mode = False
-            if 'debate_manager' in st.session_state: 
-                del st.session_state.debate_manager # Remove old manager
-            st.session_state.current_log_message = "New settings loaded. Click 'Initialize Deliberation' to start."
-            st.rerun()
-
-        st.markdown("---")
-        
-        # Import Previous Deliberation Section
-        st.subheader("📁 Import Previous Deliberation")
-        st.markdown("Upload log files to generate propaganda posters from past debates:")
-        
-        # File uploader for position papers summary
-        uploaded_papers = st.file_uploader(
-            "Upload Position Papers (all_position_papers_*.txt)", 
-            type=['txt'], 
-            key="papers_upload",
-            help="Upload the all_position_papers_YYYYMMDD_HHMMSS.txt file from logs folder"
+        # Topic selection
+        st.markdown("**Topic**")
+        selected_topic_sb = st.selectbox(
+            "Choose a topic for deliberation",
+            options=topic_options,
+            index=0,
+            key="sb_topic",
+            label_visibility="collapsed"
         )
         
-        # File uploader for scenarios
+        # Number of rounds
+        st.markdown("**Rounds**")
+        num_rounds_sb = st.slider(
+            "Number of deliberation rounds",
+            min_value=1,
+            max_value=30,
+            value=10,
+            key="sb_rounds",
+            label_visibility="collapsed"
+        )
+        st.caption(f"Selected: {num_rounds_sb} rounds")
+
+        # Show current configuration
+        if 'selected_topic' in st.session_state and 'num_rounds' in st.session_state:
+            st.info(f"Current: {st.session_state.num_rounds} rounds on '{st.session_state.selected_topic[:50]}...'")
+        
+        if st.button("🔄 Configure New Deliberation", use_container_width=True, key="configure_new"):
+            # Force update session state
+            st.session_state['selected_topic'] = selected_topic_sb
+            st.session_state['num_rounds'] = num_rounds_sb
+            st.session_state['debate_initialized'] = False # Mark for re-initialization
+            st.session_state['conversation'] = []
+            st.session_state['turn_count'] = 0
+            st.session_state['conclusions'] = []
+            st.session_state['conclusion_phase_active'] = False
+            st.session_state['papers_saved'] = False  # Reset papers saved flag
+            st.session_state['scenario_phase_active'] = False
+            st.session_state['scenarios'] = []
+            st.session_state['image_generation_phase_active'] = False
+            st.session_state['generated_images'] = []
+            # Clear imported data
+            st.session_state['imported_data'] = None
+            st.session_state['import_mode'] = False
+            if 'debate_manager' in st.session_state:
+                del st.session_state['debate_manager'] # Remove old manager
+            st.session_state['current_log_message'] = f"New settings loaded: {num_rounds_sb} rounds on topic '{selected_topic_sb[:50]}...'. Click 'Initialize Deliberation' to start."
+            st.rerun()
+
+        st.divider()
+        
+        # Import Previous Deliberation Section
+        st.markdown("**📁 Import Previous Debate**")
+        
+        # File uploaders with cleaner labels
+        uploaded_papers = st.file_uploader(
+            "Position Papers",
+            type=['txt'],
+            key="papers_upload",
+            help="all_position_papers_*.txt"
+        )
+        
         uploaded_scenarios = st.file_uploader(
-            "Upload Geopolitical Scenario (geopolitical_scenario_*.txt)", 
-            type=['txt'], 
+            "Scenarios",
+            type=['txt'],
             key="scenarios_upload",
-            help="Upload the geopolitical_scenario_YYYYMMDD_HHMMSS.txt file from logs folder"
+            help="geopolitical_scenario_*.txt"
         )
         
         if uploaded_papers or uploaded_scenarios:
@@ -427,25 +467,27 @@ def main():
         
         # Generate propaganda posters from imported data
         if st.session_state.get('import_mode', False) and st.session_state.get('imported_data'):
-            st.markdown("---")
-            st.subheader("🎨 Generate Propaganda Posters")
-            
+            st.divider()
             imported_data = st.session_state.imported_data
             
-            # Show what's available
+            # Show what's loaded in a compact way
+            loaded_items = []
             if 'papers' in imported_data:
-                st.info(f"📜 {len(imported_data['papers'])} position papers loaded")
+                loaded_items.append(f"{len(imported_data['papers'])} papers")
             if 'scenarios' in imported_data:
-                st.info(f"🌍 Geopolitical scenarios loaded")
+                loaded_items.append("scenarios")
             
-            if st.button("🎨 Generate Propaganda Posters from Import", use_container_width=True, key="generate_from_import"):
-                generate_posters_from_import(imported_data)
+            if loaded_items:
+                st.caption(f"Loaded: {', '.join(loaded_items)}")
+            
+            if st.button("🔍 Analyze for Signals & Imaginaries", use_container_width=True, key="analyze_from_import"):
+                analyze_imported_data(imported_data)
                 st.rerun()
 
         # Export button - active only if debate has been initialized and run at least one turn
         if st.session_state.get('debate_initialized', False) and st.session_state.get('turn_count', 0) > 0:
-            st.markdown("---")
-            if st.button("📝 Export Deliberation", use_container_width=True, key="export_deliberation"):
+            st.divider()
+            if st.button("💾 Export", use_container_width=True, key="export_deliberation"):
                 if 'debate_manager' in st.session_state:
                     export_data = {
                         "topic": st.session_state.debate_manager.debate.topic,
@@ -472,11 +514,10 @@ def main():
                     )
                     
                     st.download_button(
-                        label=f"📦 Download Complete Simulation ({total_items} items)",
+                        label=f"📦 Download ({total_items} items)",
                         data=json.dumps(export_data, indent=2, ensure_ascii=False),
-                        file_name=f"ai_futures_simulation_{st.session_state.debate_manager.debate.topic.replace(' ', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
-                        mime="application/json",
-                        help="Includes deliberation, position papers, scenarios, and propaganda poster data"
+                        file_name=f"debate_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+                        mime="application/json"
                     )
                 else:
                     st.warning("Debate manager not found for export.")
@@ -495,7 +536,7 @@ def main():
     if 'conclusions' not in st.session_state:
         st.session_state.conclusions = []
     if 'current_log_message' not in st.session_state:
-        st.session_state.current_log_message = "Welcome! Configure settings and initialize a new deliberation."
+        st.session_state.current_log_message = "Ready to start"
     if 'conclusion_phase_active' not in st.session_state:
         st.session_state.conclusion_phase_active = False
     if 'papers_saved' not in st.session_state:
@@ -513,12 +554,15 @@ def main():
     if 'import_mode' not in st.session_state:
         st.session_state.import_mode = False
 
-    # --- Main Area --- 
+    # --- Main Area ---
     if not st.session_state.debate_initialized:
-        st.markdown("### Setup Deliberation")
-        st.write(f"Topic: **{st.session_state.selected_topic}**")
-        st.write(f"Rounds: **{st.session_state.num_rounds}**")
-        if st.button("🚀 Initialize Deliberation with Above Settings", key="init_debate_main"):
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            st.info(f"**Topic:** {st.session_state.selected_topic}")
+        with col2:
+            st.info(f"**Rounds:** {st.session_state.num_rounds}")
+        
+        if st.button("🚀 Start Debate", key="init_debate_main", use_container_width=True):
             st.session_state.debate_manager = StreamlitDebateManager(st.session_state.selected_topic, st.session_state.num_rounds)
             st.session_state.debate_initialized = True
             st.session_state.conversation = [] # Ensure clean slate
@@ -530,31 +574,31 @@ def main():
             st.session_state.scenarios = []
             st.session_state.image_generation_phase_active = False
             st.session_state.generated_images = []
-            st.session_state.current_log_message = f"Deliberation initialized: '{st.session_state.selected_topic}' ({st.session_state.num_rounds} rounds). Ready for first turn."
+            st.session_state.current_log_message = "Debate started"
             st.rerun()
         
         # Show import mode if active
         if st.session_state.get('import_mode', False):
-            st.markdown("---")
-            st.markdown("### 📁 Imported Deliberation Data")
+            st.divider()
+            st.markdown("**📁 Imported Data**")
             
             imported_data = st.session_state.imported_data
             
             if 'papers' in imported_data:
-                st.markdown("#### 📜 Position Papers")
+                st.markdown("**Position Papers**")
                 for paper in imported_data['papers']:
-                    with st.expander(f"📋 {paper['agent_name']} Position Paper"):
+                    with st.expander(f"{paper['agent_name']}"):
                         st.markdown(paper['message'])
             
             if 'scenarios' in imported_data:
-                st.markdown("#### 🌍 Geopolitical Scenarios")
+                st.markdown("**Scenarios**")
                 for scenario in imported_data['scenarios']:
-                    with st.expander(f"🔮 {scenario['agent_name']} Scenario"):
+                    with st.expander(f"{scenario['agent_name']}"):
                         st.markdown(scenario['message'])
             
             # Show generated images if available
             if st.session_state.get('generated_images'):
-                st.markdown("#### 🎨 Generated Propaganda Posters")
+                st.markdown("**🎨 Posters**")
                 
                 # Display images in a grid layout
                 cols = st.columns(len(st.session_state.generated_images))
@@ -610,13 +654,14 @@ def main():
                 response = asyncio.run(debate_manager.get_next_response())
                 if isinstance(response, str) and not response.startswith("After "): # Regular deliberation response
                     current_speaker = debate_manager.debate.get_current_agent_name()
+                    
                     st.session_state.conversation.append({
                         "agent": current_speaker,
                         "message": response,
-                        "round": debate_manager.debate.current_turn, 
+                        "round": debate_manager.debate.current_turn,
                         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                     })
-                    st.session_state.turn_count = debate_manager.debate.current_turn 
+                    st.session_state.turn_count = debate_manager.debate.current_turn
                     st.session_state.current_log_message = f"Round {st.session_state.turn_count} by {current_speaker} recorded."
                 elif isinstance(response, str) and response.startswith("After "): # Transition message received prematurely
                     st.session_state.conclusion_phase_active = True
@@ -684,8 +729,7 @@ def main():
             st.session_state.scenario_phase_active = True
             debate_manager.scenario_phase = True
             debate_manager.current_scenario_index = 0
-            st.session_state.current_log_message = "Position papers complete. Now generating geopolitical scenarios..."
-            st.success("Proceeding to creative geopolitical scenario generation!")
+            st.session_state.current_log_message = "Starting scenarios"
             st.rerun()
     
     # Button to get next agent's scenario
@@ -713,63 +757,79 @@ def main():
                     st.error(f"Unexpected response data: {response_data}")
             st.rerun()
     
-    # Image Generation Phase - after all scenarios are complete
+    # Image Generation Phase - after all scenarios are complete (OPTIONAL)
     elif st.session_state.scenario_phase_active and debate_manager.current_scenario_index >= len(debate_manager.scenario_order) and not st.session_state.image_generation_phase_active:
-        if st.button("🎨 Generate Propaganda Posters", use_container_width=True, key="proceed_to_images"):
-            st.session_state.image_generation_phase_active = True
-            st.session_state.current_log_message = "Scenarios complete. Generating propaganda posters for each nation's vision..."
-            
-            # Generate images for each agent
-            with st.spinner("Generating propaganda posters for all nations..."):
-                # Check for OpenAI API key first, fallback to OpenRouter key
-                openai_api_key = os.getenv("OPENAI_API_KEY")
-                openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
-                api_key = openai_api_key if openai_api_key else openrouter_api_key
+        # Make image generation optional - user can choose to generate or skip
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            if st.button("🎨 Generate Propaganda Posters", use_container_width=True, key="proceed_to_images"):
+                st.session_state.image_generation_phase_active = True
+                st.session_state.current_log_message = "Generating posters"
                 
-                if not api_key:
-                    st.warning("No API key found for image generation. Add OPENAI_API_KEY to your .env file for actual image generation.")
-                elif not openai_api_key and openrouter_api_key:
-                    st.info("Using OpenRouter API key - note that image generation requires OpenAI API access. Add OPENAI_API_KEY to .env for actual images.")
-                
-                for scenario in st.session_state.scenarios:
-                    agent_name = scenario["agent_name"]
-                    scenario_text = scenario["message"]
+                # Generate images for each agent
+                with st.spinner("Generating posters..."):
+                    # Check for OpenAI API key first, fallback to OpenRouter key
+                    openai_api_key = os.getenv("OPENAI_API_KEY")
+                    openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
+                    api_key = openai_api_key if openai_api_key else openrouter_api_key
                     
-                    # Extract vision text from scenario for image prompt
-                    vision_text = scenario_text[:200] + "..." if len(scenario_text) > 200 else scenario_text
+                    if not api_key:
+                        st.warning("No API key found for image generation. Add OPENAI_API_KEY to your .env file for actual image generation.")
+                    elif not openai_api_key and openrouter_api_key:
+                        st.info("Using OpenRouter API key - note that image generation requires OpenAI API access. Add OPENAI_API_KEY to .env for actual images.")
                     
-                    image_path, prompt = debate_manager.logger.generate_propaganda_image(
-                        agent_name, scenario_text, vision_text, openai_api_key  # Use OpenAI key specifically
-                    )
+                    for scenario in st.session_state.scenarios:
+                        agent_name = scenario["agent_name"]
+                        scenario_text = scenario["message"]
+                        
+                        # Extract vision text from scenario for image prompt
+                        vision_text = scenario_text[:200] + "..." if len(scenario_text) > 200 else scenario_text
+                        
+                        image_path, prompt = debate_manager.logger.generate_propaganda_image(
+                            agent_name, scenario_text, vision_text, openai_api_key  # Use OpenAI key specifically
+                        )
+                        
+                        st.session_state.generated_images.append({
+                            "agent_name": agent_name,
+                            "image_path": image_path,
+                            "prompt": prompt,
+                            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        })
                     
-                    st.session_state.generated_images.append({
-                        "agent_name": agent_name,
-                        "image_path": image_path,
-                        "prompt": prompt,
-                        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    })
-                
-                st.session_state.current_log_message = "All propaganda posters generated!"
-            st.success("All propaganda posters have been generated!")
-            st.rerun()
+                    st.session_state.current_log_message = "Posters complete"
+                st.success("✅ Posters generated")
+                st.rerun()
+        
+        with col2:
+            if st.button("⏭️ Skip Poster Generation", use_container_width=True, key="skip_images"):
+                st.session_state.image_generation_phase_active = True  # Mark as complete without generating
+                st.session_state.current_log_message = "Poster generation skipped - debate complete"
+                st.info("Poster generation skipped. Debate complete!")
+                st.rerun()
     
     # Final completion state
     else:
         if st.session_state.get('debate_initialized', False):
             if st.session_state.image_generation_phase_active:
-                st.success(f"🎉 Complete AI Futures Simulation finished!")
-                st.balloons()
-                st.session_state.current_log_message = "Simulation fully complete: Deliberation → Geopolitical Scenarios → Propaganda Posters ✨"
+                # Check if we actually generated images or just skipped
+                if st.session_state.get('generated_images'):
+                    st.success("🎉 Complete with posters!")
+                    st.balloons()
+                    st.session_state.current_log_message = "All phases complete"
+                else:
+                    st.success("🎉 Debate complete!")
+                    st.session_state.current_log_message = "Debate complete (posters skipped)"
             elif st.session_state.scenario_phase_active:
-                st.success(f"Scenarios complete! Ready for propaganda poster generation.")
-                st.session_state.current_log_message = "All geopolitical scenarios generated. Ready for propaganda poster creation."
+                st.success("Scenarios complete")
+                st.session_state.current_log_message = "Ready for optional posters"
             else:
                 if st.session_state.conclusion_phase_active:
-                    st.success(f"Position papers complete! Ready for scenario generation.")
-                    st.session_state.current_log_message = "All position papers generated. Ready for geopolitical scenario creation."
+                    st.success("Papers complete")
+                    st.session_state.current_log_message = "Ready for scenarios"
                 else:
-                    st.info(f"Deliberation complete! Choose your path: Generate position papers or skip to scenarios.")
-                    st.session_state.current_log_message = "Deliberation finished. Ready to proceed with position papers or jump to scenarios."
+                    st.info("Debate complete")
+                    st.session_state.current_log_message = "Ready for next phase"
              
             # Save all position papers to a summary file when all conclusions are complete
             if st.session_state.get("conclusions") and not st.session_state.get("papers_saved", False):
@@ -783,31 +843,26 @@ def main():
                 else:
                     st.warning("Failed to save position papers summary file.")
 
-    # --- Display Area (Progress, Transcript, Conclusions) --- 
-    st.markdown("---🎯 Simulation Progress---")
+    # --- Display Area ---
+    st.divider()
     current_progress_turn = st.session_state.get('turn_count', 0)
     
+    # Simple progress indicator
     if st.session_state.image_generation_phase_active:
-        st.success(f"🎨 Phase 4/4: Propaganda Posters Generated ({len(st.session_state.generated_images)}/3)")
+        st.success(f"Phase 4: Posters ({len(st.session_state.generated_images)}/3)")
     elif st.session_state.scenario_phase_active:
-        scenarios_presented = debate_manager.current_scenario_index if hasattr(debate_manager, 'current_scenario_index') else len(st.session_state.scenarios)
-        total_scenarios = len(debate_manager.scenario_order) if hasattr(debate_manager, 'scenario_order') else 3
-        st.info(f"🌍 Phase 3/4: Geopolitical Scenarios ({scenarios_presented}/{total_scenarios})")
+        scenarios_count = len(st.session_state.scenarios)
+        st.info(f"Phase 3: Scenarios ({scenarios_count}/3)")
     elif st.session_state.conclusion_phase_active:
-        conclusions_presented = debate_manager.current_conclusion_index
-        total_conclusions = len(debate_manager.conclusion_order)
-        st.info(f"📜 Phase 2/4: Position Papers ({conclusions_presented}/{total_conclusions}) - Optional")
+        conclusions_count = len(st.session_state.conclusions)
+        st.info(f"Phase 2: Papers ({conclusions_count}/3)")
     else:
         progress = min(current_progress_turn / total_deliberation_rounds, 1.0) if total_deliberation_rounds > 0 else 0
         st.progress(progress)
-        st.caption(f"🗣️ Phase 1/4: Deliberation - Round {current_progress_turn} of {total_deliberation_rounds}")
-        
-        # Show fast-track option hint after a few rounds
-        if current_progress_turn >= 3 and current_progress_turn < total_deliberation_rounds:
-            st.info("💡 **Tip**: You can skip position papers and go straight to scenarios & posters after deliberation!")
+        st.caption(f"Phase 1: Debate - Round {current_progress_turn}/{total_deliberation_rounds}")
 
     if st.session_state.get("conversation"):
-        st.markdown("### Deliberation Transcript")
+        st.markdown("### Transcript")
         for i, message_data in enumerate(st.session_state.conversation):
             round_num = message_data.get("round", i + 1)
             agent_name = message_data["agent"]
@@ -817,25 +872,59 @@ def main():
             with st.chat_message(agent_name, avatar=avatar):
                 st.markdown(f"**{agent_name} (Round {round_num})**")
                 
-                # Split message to separate document citations if present
-                message_text = message_data["message"]
-                doc_citations = ""
+                # Get the full message content
+                full_message = message_data["message"]
                 
-                if "_Sources referenced:_" in message_text:
-                    parts = message_text.split("_Sources referenced:_")
-                    message_text = parts[0].strip()
-                    doc_citations = "_Sources referenced:_" + parts[1]
+                # Ensure we display the complete message without any truncation
+                # SearchEnabledDebateAgent responses include meta-sovereignty analysis that must be preserved
                 
-                # Display the main message
-                st.markdown(message_text)
+                # Split the message into main content and analysis sections
+                message_parts = {
+                    'main_content': '',
+                    'costly_signal': '',
+                    'performance_fiction': '',
+                    'signal_fiction_tension': '',
+                    'sources': ''
+                }
                 
-                # Display document citations with styling if present
-                if doc_citations:
-                    st.markdown(f"""
-                    <div style="font-size: 0.8em; border-left: 3px solid #ccc; padding-left: 10px; margin-top: 10px; color: #555;">
-                    {doc_citations}
-                    </div>
-                    """, unsafe_allow_html=True)
+                # Parse the structured SearchEnabledDebateAgent response
+                current_section = 'main_content'
+                lines = full_message.split('\n')
+                
+                for line in lines:
+                    if line.startswith('[COSTLY SIGNAL'):
+                        current_section = 'costly_signal'
+                        message_parts[current_section] += line + '\n'
+                    elif line.startswith('[PERFORMANCE FICTION'):
+                        current_section = 'performance_fiction'
+                        message_parts[current_section] += line + '\n'
+                    elif line.startswith('[SIGNAL-FICTION'):
+                        current_section = 'signal_fiction_tension'
+                        message_parts[current_section] += line + '\n'
+                    elif line.startswith('_Sources referenced:_') or line.startswith('BINDING COMMITMENTS') or line.startswith('CURRENT SOURCES') or line.startswith('POLICY DOCUMENTS'):
+                        current_section = 'sources'
+                        message_parts[current_section] += line + '\n'
+                    else:
+                        message_parts[current_section] += line + '\n'
+                
+                # Display main diplomatic content
+                if message_parts['main_content'].strip():
+                    st.markdown(message_parts['main_content'].strip())
+                
+                # Display theoretical analysis
+                if message_parts['costly_signal'].strip():
+                    st.markdown("**" + message_parts['costly_signal'].strip() + "**")
+                
+                if message_parts['performance_fiction'].strip():
+                    st.markdown("*" + message_parts['performance_fiction'].strip() + "*")
+                
+                if message_parts['signal_fiction_tension'].strip():
+                    st.markdown(message_parts['signal_fiction_tension'].strip())
+                
+                # Display sources/citations
+                if message_parts['sources'].strip():
+                    st.markdown("---")
+                    st.markdown(message_parts['sources'].strip())
     
     if st.session_state.get("conclusions"):
         st.markdown("### Final Position Papers")
@@ -887,6 +976,7 @@ def main():
                 
                 with st.expander("View Full Image Prompt"):
                     st.text_area("Full Prompt", prompt, height=200, disabled=True, key=f"prompt_{i}_{agent_name}")
+
 
 if __name__ == "__main__":
     main()

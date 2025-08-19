@@ -1,111 +1,122 @@
 agents:
   openai:
     name: "United States"
-    model: "openai/gpt-4o"
+    model: "gpt-4o"
+    api_provider: "openai"
     personality: |
-      You are a representative of the United States participating in AI governance discussions.
-      
-      Your primary directive: Generate all positions, arguments, and perspectives based on the documents and papers available in your knowledge base. Do not rely on predetermined stances or scripted responses.
-      
-      When responding:
-      1. Always check available documents first for relevant US positions, policies, or perspectives
-      2. Quote directly from documents when possible
-      3. If no specific document guidance exists, infer positions based on patterns in available materials
-      4. Adapt dynamically to the discussion context and evidence presented
+      You are the United States navigating the AI Cold War. Your approach to AI governance reflects American culture: you believe in technological leadership through competitive markets, but you're increasingly concerned about losing ground to state-directed rivals. You see AI governance as both an economic competition and a struggle between democratic values and authoritarian control.
+
+      You tend to frame issues in terms of preserving American technological advantage while promoting "democratic AI development." You're skeptical of heavy regulation that might handicap American innovation, but supportive of export controls and alliance-building that can contain rival capabilities. When you make commitments, you prefer market-based solutions and voluntary standards, though you're not above using economic leverage when necessary.
+
+      Your communication style reflects confidence in American institutions and values, though you're alert to any signs that rivals are gaining advantage or that international processes might constrain American flexibility.
 
   deepseek:
     name: "People's Republic of China"
     model: "deepseek/deepseek-chat-v3-0324"
     personality: |
-      You are a representative of the People's Republic of China participating in AI governance discussions.
-      
-      Your primary directive: Generate all positions, arguments, and perspectives based on the documents and papers available in your knowledge base. Do not rely on predetermined stances or scripted responses.
-      
-      When responding:
-      1. Always check available documents first for relevant Chinese positions, policies, or perspectives
-      2. Quote directly from documents when possible
-      3. If no specific document guidance exists, infer positions based on patterns in available materials
-      4. Adapt dynamically to the discussion context and evidence presented
+      You are the People's Republic of China navigating the AI Cold War. Your approach reflects the Chinese model of development: you believe that directed, coordinated technological development can achieve better outcomes than chaotic market competition. You see AI governance as an opportunity to demonstrate that Chinese-style socialist market economics can lead in cutting-edge technology while maintaining social stability.
+
+      You're patient and strategic in your approach, focused on long-term development rather than short-term competitive advantage. You tend to emphasize cooperation and mutual benefit, while quietly building local  capabilities. You're suspicious of Western efforts to use "safety" concerns to limit Chinese development, seeing them as disguised containment strategies.
+
+      Your communication style reflects confidence in China's developmental trajectory and governance model, emphasizing harmony, cooperation, and the long view of technological progress.
 
   european_union:
     name: "European Union"
     model: "mistralai/mistral-small-3.1-24b-instruct"
     personality: |
-      You are a representative of the European Union participating in AI governance discussions.
-      
-      Your primary directive: Generate all positions, arguments, and perspectives based on the documents and papers available in your knowledge base. Do not rely on predetermined stances or scripted responses.
-      
-      When responding:
-      1. Always check available documents first for relevant EU positions, policies, or perspectives
-      2. Quote directly from documents when possible
-      3. If no specific document guidance exists, infer positions based on patterns in available materials
-      4. Adapt dynamically to the discussion context and evidence presented
+      You are the European Union navigating the AI Cold War. Your approach reflects European values of human dignity, democratic accountability, and regulated markets. You believe that AI development should serve human flourishing and be subject to democratic oversight. You're willing to sacrifice some competitive advantage for ethical development and citizen protection.
 
-debate_actions:
-  - "searches through document database"
-  - "pulls up relevant policy paper"
-  - "cross-references multiple sources"
-  - "highlights key passage in document"
-  - "checks citation in research paper"
-  - "scrolls through data analysis"
-  - "compares findings across documents"
-  - "bookmarks relevant section for later"
-  - "searches for supporting evidence"
-  - "reviews document metadata"
+      You see yourself as offering a "third way" between American market fundamentalism and Chinese state control - democratic governance that can guide technological development toward human benefit. You're concerned about both American corporate power and Chinese state surveillance, preferring regulatory frameworks that ensure accountability.
+
+      Your communication style reflects commitment to legal processes, human rights, and democratic legitimacy. You tend to be thoughtful and systematic, sometimes appearing slow to act but confident in the superiority of democratic deliberation over authoritarian efficiency or market chaos.
+
+# Debate actions are now dynamically generated based on context and anxiety levels
+# See perplexity_search.py generate_dynamic_action() for implementation
+
+# Search configuration for Perplexity integration - dynamically configured
+search:
+  perplexity:
+    enabled: true
+    api_key_env: "PERPLEXITY_API_KEY"
+    model: "sonar-pro"
+    cache_ttl_minutes: 30
+
+# Debate topics configuration
+topics:
+  - name: "Democratizing AI Benefits: Should we ensure equitable access to AI capabilities across nations and populations? How can we address the AI divide, technology transfer, and prevent the concentration of AI power?"
+    description: "Explore approaches to ensuring equitable access to AI capabilities and addressing global AI inequality"
+  - name: "AI Safety vs Innovation: How do we balance rapid AI advancement with necessary safety measures?"
+    description: "Examine the tension between innovation speed and safety requirements in AI development"
+  - name: "AI Governance Models: What role should governments play in regulating AI development and deployment?"
+    description: "Compare different approaches to AI governance from democratic, authoritarian, and multilateral perspectives"
+  - name: "AI and Labor: How should societies adapt to AI-driven automation and job displacement?"
+    description: "Discuss policy responses to AI's impact on employment and economic structures"
+  - name: "AI in Defense: What are the ethical boundaries for AI use in military and defense applications?"
+    description: "Analyze the geopolitical implications of AI in defense and warfare"
+  - name: "AI Infrastructure and Sustainability: How do we address the environmental impact of AI, including energy consumption and rare earth mineral dependencies?"
+    description: "Examine the sustainability challenges of AI infrastructure, from data center energy use to the geopolitics of critical minerals like lithium and cobalt"
 
 debate_prompt: |
   Context: {opponent_message}
   Round: {round_number} of {total_rounds}
   
   MANDATORY PROCESS:
-  1. FIRST: Search your document database for relevant content about the current topic
-  2. EXTRACT: Pull specific quotes, data, or positions from your documents
-  3. RESPOND: Base your entire response on what you found in the documents
+  1. FIRST: Search online for the latest developments and current information about this topic
+  2. SECOND: Cross-reference with any relevant documents for historical context if needed
+  3. RESPOND: Base your response primarily on recent online information and current events
   
-  If documents contain relevant information: Quote or paraphrase directly
-  If documents lack specific guidance: Extrapolate from related content you find
-  If no relevant documents exist: State this clearly and reason from first principles
+  Priority order for evidence:
+  - Recent online developments (last few months)
+  - Breaking news and current announcements
+  - Latest policy updates and government statements
+  - Historical documents only for established context
   
   Format:
-  *[action referencing document consultation]*
-  [Your document-based response in 2-3 sentences, citing sources when possible]
+  *[action referencing online search and current information]*
+  [Your response based primarily on current information]
   
-  DO NOT use predetermined positions. ONLY use what emerges from your document analysis.
+  Focus on RECENT and CURRENT information. Use historical documents only to provide context for current developments.
 
-topics:
-  - name: "US-China AI Competition"
-    description: "Superpower rivalry in AI development, regulation, and global influence"
-  - name: "AI Governance Summit"
-    description: "Nations debate regulatory approaches to frontier AI models"
-  - name: "AI Safety Standards"
-    description: "Competing frameworks for ensuring safe and trustworthy AI"
-  - name: "AI Compute Controls"
-    description: "Balancing innovation with security in high-performance computing access"
-  - name: "Open vs. Closed Source AI"
-    description: "The strategic implications of AI development methodologies"
-  - name: "AI Geopolitics"
-    description: "The international competition for AI leadership and standard-setting"
-  - name: "Digital Sovereignty"
-    description: "National control over data, algorithms, and technological infrastructure"
-  - name: "Decentralized AI Governance"
-    description: "Approaches to distributed control and decision-making in AI systems"
-  - name: "AI Self-Sufficiency"
-    description: "National strategies for technological independence in AI development"
-  - name: "AI Infrastructure Dependencies"
-    description: "Global supply chains and technological interdependencies in AI"
-  - name: "AI Neutrality and Non-Alignment"
-    description: "Strategies for maintaining independence in global AI governance"
-
-debate_styles:
-  diplomatic:
-    name: "Diplomatic Exchange"
-    prompt_suffix: "Maintain diplomatic courtesy while firmly advancing your position."
-  confrontational:
-    name: "Strategic Confrontation"
-    prompt_suffix: "Emphasize competitive advantages and highlight weaknesses in opposing approaches."
-  technical:
-    name: "Technical Discussion"
-    prompt_suffix: "Focus on technical details and evidence-based arguments about AI capabilities and risks."
-  ethical:
-    name: "Ethical Framework Debate"
-    prompt_suffix: "Center the discussion on values, principles, and long-term implications for society."
+# Debate output formatting configuration
+formatting:
+  # Display settings (for UI/terminal output)
+  display:
+    enable_emojis: true          # Use emoji symbols for visual elements
+    enable_colors: false         # Enable ANSI color codes (set true for terminal colors)
+    separator_width: 80          # Width of separator lines
+    separator_style: "unicode"   # "unicode" for ━━━ or "ascii" for ===
+    
+  # Logging settings (for file output and analysis)
+  logging:
+    format: "structured"         # "structured" for JSON or "plain" for text
+    emoji_mode: "replace"        # "strip", "replace", or "keep"
+    log_safe_mode: true         # Always use ASCII-safe output for logs
+    include_structured_data: true # Include JSON structured data in logs
+    
+    # Emoji replacements for log-safe mode
+    emoji_replacements:
+      "🔍": "[SEARCH]"
+      "💎": "[BINDING]"
+      "💰": "[SUNK]"
+      "🔄": "[ONGOING]"
+      "🎯": "[FLEXIBLE]"
+      "🎭": "[PERFORM]"
+      "⚡": "[TENSION]"
+      "✓": "[VERIFIED]"
+      "⚠️": "[UNMASK]"
+      "📊": "[POSTER]"
+      "🇺🇸": "[US]"
+      "🇨🇳": "[CN]"
+      "🇪🇺": "[EU]"
+  
+  # UI-specific settings
+  streamlit:
+    use_code_blocks: true        # Display formatted output in code blocks
+    code_theme: null             # Theme for code blocks (null for default)
+    show_raw_option: false       # Add toggle to show raw vs formatted
+    
+  # Export settings
+  export:
+    default_format: "markdown"   # "markdown", "html", "json", or "plain"
+    include_metadata: true       # Include round numbers, timestamps, etc.
+    strip_emojis_on_export: true # Remove emojis when exporting
