@@ -439,8 +439,79 @@ Common issues and solutions:
    - Modify temperature settings
    - Check system resources
 
+## 🎨 Narrative Transformation Tools
+
+Transform dry policy documents and simulation logs into engaging, memorable stories that retain all important information while adding humor, characters, and cultural specificity.
+
+### Why Use Narrative Transformation?
+
+Traditional simulation logs are often dry and forgettable. Our narrative transformation tools turn these into memorable stories that:
+- **Retain all factual information** while making it engaging
+- **Add human elements** that help readers connect with abstract policies
+- **Highlight contradictions and ironies** in governance approaches
+- **Make complex geopolitics accessible** through humor and storytelling
+
+### Features
+
+- **Automated Log Transformation**: Python script to automatically convert boring logs into engaging narratives
+- **Character Generation**: Creates memorable personas with quirks and backstories
+- **Cultural Localization**: Adds region-specific details and humor
+- **Ironic Consequences**: Highlights unintended effects of policies
+- **Human-Centered Stories**: Converts abstract policies into relatable daily experiences
+
+### Quick Example
+
+**Before**: "China implemented the Three-Layer Regulatory Model for AI governance."
+
+**After**: "Beijing unveiled its Three-Layer Regulatory Model at a ceremony where holographic dragons danced with algorithmic precision. Local developers immediately nicknamed it 'The Great Firewall's Smarter Brother' and began teaching their AIs to speak in metaphors to bypass the first layer."
+
+### Usage
+
+```bash
+# Transform a log automatically
+python log_narrative_transformer.py
+
+# Or manually using the guides
+# See simulation_narrative_guide.md for techniques
+# See quick_transformation_examples.md for templates
+```
+
+### Transformation Techniques
+
+1. **Add Specific Characters**: Not "citizens" but "Grandmother Wei who teaches her AI to cheat at mahjong"
+2. **Include Sensory Details**: What does AI surveillance smell like? (New plastic and fear)
+3. **Show Unintended Uses**: Facial recognition that mistakes haggling for fighting
+4. **Cultural Misunderstandings**: AI teaching Kenyan children the Chinese anthem in Swahili
+5. **Bureaucratic Absurdity**: Ethics committees requiring 500-page essays in Comic Sans
+
+### Character Database
+
+The transformer includes pre-built character templates for each region:
+- **China**: Underground coders, bureaucrats who believe AI detects sarcasm, delivery drivers hacking city systems
+- **US**: Silicon Valley PMs teaching AI buzzwords, suburban moms making Alexa argue with Siri
+- **EU**: Philosophers debating with chatbots, cafe owners refusing AI-recommended espresso
+- **Africa**: Startup founders translating VC speak, farmers teaching AI to respect rain prayers
+
+### Power Word Replacements
+
+Transform bureaucratic language instantly:
+- Implemented → "unleashed upon unsuspecting"
+- Deployed → "inflicted on"
+- Framework → "bureaucratic jenga tower"
+- Stakeholders → "people with lawyers"
+- Synergy → "forced friendship"
+
+### Files
+
+- `simulation_narrative_guide.md`: Complete guide to narrative transformation techniques
+- `quick_transformation_examples.md`: Before/after examples and power word replacements
+- `log_narrative_transformer.py`: Automated transformation script with character database
+- `logs/*_transformed.txt`: Example transformed scenarios showing the technique in action
+
 ## Additional Documentation
 
+- **[Simulation Narrative Guide](simulation_narrative_guide.md)**: Complete guide to making logs engaging
+- **[Quick Transformation Examples](quick_transformation_examples.md)**: Templates and before/after examples
 - **[Debate Formatting Guide](debate_formatting_guide.md)**: Detailed formatting specifications
 - **[Encoding Setup Guide](ENCODING_SETUP.md)**: Platform-specific encoding configuration
 - **[Emoji Compatibility Analysis](emoji_compatibility_analysis.md)**: Technical details on emoji handling

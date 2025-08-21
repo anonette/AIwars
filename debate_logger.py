@@ -142,30 +142,38 @@ class DebateLogger:
         self.logger.info(f"Image Generated for {agent_name}\nPrompt: {image_prompt}\nSaved to: {image_path}\n{'-'*50}")
 
     def generate_propaganda_image(self, agent_name: str, scenario_text: str, vision_text: str, api_key: str = None):
-        """Generate propaganda-style image using OpenAI DALL-E API"""
+        """Generate sophisticated propaganda-style image using OpenAI DALL-E API"""
         
-        # Extract key phrases directly from the scenario content
-        def extract_key_concepts(content):
-            # Take the first meaningful sentence or key phrase from their actual content
-            if len(content) > 200:
-                # Find the first complete sentence that captures their vision
+        # Extract sophisticated concepts from the scenario content
+        def extract_power_dynamics(content):
+            # Look for power structures, tensions, and governance mechanisms
+            power_keywords = ['sovereignty', 'control', 'oversight', 'regulation', 'innovation', 'surveillance', 'freedom', 'security', 'competition', 'cooperation', 'dominance', 'alliance']
+            found_concepts = [word for word in power_keywords if word.lower() in content.lower()]
+            
+            # Create a more sophisticated concept extraction
+            if len(content) > 300:
+                # Find sentences that contain governance or power concepts
                 sentences = content.split('. ')
-                key_phrase = sentences[0] if sentences else content[:100]
-            else:
-                key_phrase = content
-            return key_phrase.strip()
+                power_sentences = [s for s in sentences if any(keyword in s.lower() for keyword in power_keywords)]
+                if power_sentences:
+                    return power_sentences[0][:150]
+            
+            return content[:150] if content else "AI governance vision"
         
-        key_concept = extract_key_concepts(vision_text)
+        core_concept = extract_power_dynamics(vision_text)
         
-        # Enhanced prompts based on nation for better poster style
+        # Provocative, sophisticated prompts that avoid stereotypes
         if "United States" in agent_name:
-            base_prompt = f"Vintage 1950s American propaganda poster style: {key_concept}. Patriotic red white and blue colors, bold design, heroic imagery, no text overlay"
+            base_prompt = f"""Dystopian corporate boardroom scene: Silicon Valley executives in glass towers overlooking global data streams, AI algorithms displayed as golden webs connecting continents. Dark suits, chrome surfaces, holographic displays showing market dominance. Surveillance capitalism aesthetic: sleek, predatory, technologically supreme. Neon blues and corporate grays. The vision: {core_concept}. Photorealistic, ominous lighting, no text"""
+            
         elif "China" in agent_name or "People's Republic" in agent_name:
-            base_prompt = f"Chinese Cultural Revolution poster style: {key_concept}. Bold red colors, socialist realism art, workers and technology, dynamic composition, no text overlay"
+            base_prompt = f"""Futuristic social harmony visualization: Interconnected smart cities with AI mediating between millions of citizens, algorithmic patterns creating perfect social coordination. Jade green and deep red color palette. Geometric precision meets organic flow. Citizens and technology in seamless integration, faces serene but monitored. The vision: {core_concept}. Neo-traditional Chinese aesthetics meets high-tech surveillance state, cinematic composition, no text"""
+            
         elif "European Union" in agent_name:
-            base_prompt = f"Modern European Union poster style: {key_concept}. Art nouveau influences, diverse people, technological harmony, blue and gold colors, no text overlay"
+            base_prompt = f"""Philosophical AI ethics laboratory: European intellectuals debating around a table while holographic human rights frameworks float above them, AI systems bound by golden chains of regulation. Warm library lighting, ancient books alongside quantum computers. The tension between innovation and protection visualized. The vision: {core_concept}. Rembrandt-style lighting, democratic deliberation meets technological constraint, no text"""
+            
         else:
-            base_prompt = f"{agent_name} political poster: {key_concept}. Propaganda poster style, no text overlay"
+            base_prompt = f"""Geopolitical power struggle visualization: {agent_name} navigating AI governance through complex technological and political landscapes. The vision: {core_concept}. Modern political aesthetics, sophisticated composition, no text"""
         
         if not api_key:
             # Return a placeholder if no API key

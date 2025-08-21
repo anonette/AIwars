@@ -74,35 +74,51 @@ class PerplexitySearchClient:
     async def generate_meta_query(self, agent_country: str, topic: str, 
                                  last_message: str, context: str) -> Tuple[str, str]:
         """
-        Generate search query with strategic reflection - ensuring equal specificity across agents
+        Generate search query focused on the specific debate topic with country perspective
         Returns: (search_query, chosen_angle)
         """
-        # Generate contextual search query based on current debate dynamics
-        context_keywords = []
-        if "regulation" in context.lower() or "policy" in context.lower():
-            context_keywords.append("policy")
-        if "investment" in context.lower() or "funding" in context.lower():
-            context_keywords.append("investment")
-        if "competition" in context.lower() or "rivalry" in context.lower():
-            context_keywords.append("competition")
-        if "cooperation" in context.lower() or "partnership" in context.lower():
-            context_keywords.append("cooperation")
-        if "framework" in context.lower() or "standard" in context.lower():
-            context_keywords.append("framework")
+        # Extract key terms from the actual topic for focused search
+        topic_lower = topic.lower()
+        topic_keywords = []
         
-        # Enhanced country-specific search terms for equal specificity
+        # Topic-specific keyword extraction
+        if "democratic" in topic_lower or "equitable" in topic_lower:
+            topic_keywords.extend(["equitable access", "digital divide", "democratizing"])
+        if "benefits" in topic_lower or "access" in topic_lower:
+            topic_keywords.extend(["AI benefits", "access programs", "inclusive AI"])
+        if "divide" in topic_lower:
+            topic_keywords.extend(["AI divide", "digital inequality", "technology gap"])
+        if "concentration" in topic_lower or "power" in topic_lower:
+            topic_keywords.extend(["AI concentration", "tech monopoly", "market power"])
+        if "transfer" in topic_lower:
+            topic_keywords.extend(["technology transfer", "AI sharing", "capacity building"])
+        if "safety" in topic_lower:
+            topic_keywords.extend(["AI safety", "risk mitigation", "safe deployment"])
+        if "governance" in topic_lower:
+            topic_keywords.extend(["AI governance", "regulatory framework", "oversight"])
+        if "ethics" in topic_lower or "ethical" in topic_lower:
+            topic_keywords.extend(["AI ethics", "responsible AI", "ethical guidelines"])
+        
+        # If no specific keywords found, extract from topic directly
+        if not topic_keywords:
+            # Split topic and extract meaningful terms
+            import re
+            words = re.findall(r'\b[a-zA-Z]{3,}\b', topic_lower)
+            topic_keywords = [word for word in words if word not in ['should', 'will', 'can', 'how', 'what', 'the', 'and', 'or']][:3]
+        
+        # Country-specific approaches to the topic
         country_search_patterns = {
             "United States": {
-                "prefixes": ["US", "American", "Biden administration", "White House"],
-                "specific_terms": ["NIST AI RMF", "AI Bill of Rights", "CHIPS Act", "National AI Initiative", "Executive Order", "AI Safety Institute"]
+                "prefixes": ["US", "American", "Biden administration"],
+                "programs": ["AI for All", "Digital Equity", "CHIPS Act", "AI Bill of Rights", "National AI Initiative"]
             },
             "People's Republic of China": {
-                "prefixes": ["China", "Chinese", "Beijing", "PRC"],
-                "specific_terms": ["New Generation AI Plan", "AI governance initiative", "Made in China 2025", "Digital Economy", "AI ethics guidelines", "National standards"]
+                "prefixes": ["China", "Chinese", "Beijing"],
+                "programs": ["Digital Economy", "AI Ethics Guidelines", "Made in China 2025", "Belt and Road AI", "National AI standards"]
             },
             "European Union": {
-                "prefixes": ["EU", "European", "Brussels", "European Commission"],
-                "specific_terms": ["AI Act", "Digital Single Market", "AI Ethics Guidelines", "AI Alliance", "Horizon Europe", "Digital Europe Programme", "AI regulatory sandbox"]
+                "prefixes": ["EU", "European", "Brussels"],
+                "programs": ["AI Act", "Digital Single Market", "AI Alliance", "Horizon Europe", "Digital Europe Programme"]
             }
         }
         
@@ -110,44 +126,44 @@ class PerplexitySearchClient:
         
         patterns = country_search_patterns.get(agent_country, country_search_patterns["United States"])
         prefix = random.choice(patterns["prefixes"])
+        program = random.choice(patterns["programs"])
         
-        # Create more specific queries that include actual policy frameworks
-        if context_keywords:
-            query_context = random.choice(context_keywords)
-            # Add specific policy term for more detailed results
-            specific_term = random.choice(patterns["specific_terms"])
-            query = f"{prefix} {specific_term} AI {query_context} {datetime.now().year}"
+        # Create topic-focused query
+        if topic_keywords:
+            main_keyword = random.choice(topic_keywords)
+            # Combine country approach with specific topic focus
+            query = f"{prefix} {program} {main_keyword} 2024 2025"
         else:
-            # Even basic queries should include specific policy frameworks
-            specific_term = random.choice(patterns["specific_terms"])
-            query = f"{prefix} {specific_term} latest developments {datetime.now().year}"
+            # Fallback to program-specific search
+            query = f"{prefix} {program} latest initiatives 2025"
         
-        # Strategic angles tailored to each country's approach
-        country_angles = {
-            "United States": [
-                "National security and technological competitiveness",
-                "Private sector innovation and regulation balance",
-                "International AI alliance building",
-                "Export control and technology leadership",
-                "AI safety and democratic values"
-            ],
-            "People's Republic of China": [
-                "Digital sovereignty and technological self-reliance",
-                "AI governance with Chinese characteristics",
-                "Belt and Road digital cooperation",
-                "State-directed AI development",
-                "International AI governance participation"
-            ],
-            "European Union": [
-                "Human-centric AI and fundamental rights",
-                "Digital single market and AI regulation",
-                "Global AI standard setting",
-                "Trustworthy AI and ethical frameworks",
-                "Digital sovereignty and strategic autonomy"
+        # Topic-focused strategic angles
+        if "democratic" in topic_lower or "equitable" in topic_lower:
+            angles = [
+                f"Ensuring equitable AI access and reducing digital divides",
+                f"Democratizing AI capabilities across populations",
+                f"Preventing AI concentration and promoting inclusion"
             ]
-        }
+        elif "safety" in topic_lower:
+            angles = [
+                f"International AI safety cooperation and standards",
+                f"Shared approaches to AI risk mitigation",
+                f"Collaborative AI safety research and deployment"
+            ]
+        elif "governance" in topic_lower:
+            angles = [
+                f"AI governance frameworks and international coordination",
+                f"Regulatory approaches to AI oversight",
+                f"Multi-stakeholder AI governance models"
+            ]
+        else:
+            # Default angles based on extracted keywords
+            angles = [
+                f"National approach to {topic_keywords[0] if topic_keywords else 'AI development'}",
+                f"International cooperation on {topic_keywords[-1] if topic_keywords else 'AI policy'}",
+                f"Strategic positioning on {topic}"
+            ]
         
-        angles = country_angles.get(agent_country, country_angles["United States"])
         chosen_angle = random.choice(angles)
         
         return query, chosen_angle
